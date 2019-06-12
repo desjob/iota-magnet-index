@@ -1,16 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { MuiPickersUtilsProvider } from '@material-ui/pickers';
-import DateFnsUtils from '@date-io/date-fns';
 import { HashRouter } from "react-router-dom";
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
     <HashRouter >
-        <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <App />
-        </MuiPickersUtilsProvider>
+        <App />
     </HashRouter>,
     document.getElementById('root')
 );

@@ -2,6 +2,8 @@ import React, { Fragment } from "react";
 import { KeyboardDatePicker } from "@material-ui/pickers";
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import { MuiPickersUtilsProvider } from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
 
 const useStyles = makeStyles(theme => ({
   date: {
@@ -24,6 +26,7 @@ const DateRangePicker = ({
 
   return (
     <Fragment>
+      <MuiPickersUtilsProvider utils={DateFnsUtils}>
         <KeyboardDatePicker
           autoOk
           clearable
@@ -53,7 +56,8 @@ const DateRangePicker = ({
           onClick={onClickSevenDays}
         >Last 7 days
         </Button>
-      </Fragment>
+      </MuiPickersUtilsProvider>
+    </Fragment>
   );
 }
 
