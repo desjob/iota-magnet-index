@@ -1,13 +1,10 @@
 import React from 'react';
 import FlexSearch from 'flexsearch';
-import TorrentSearch from './components/torrentSearch';
-import ResultList from './components/resultList';
-import Header from './components/header';
-import Divider from '@material-ui/core/Divider';
-import { MuiPickersUtilsProvider } from '@material-ui/pickers';
-import DateFnsUtils from '@date-io/date-fns';
-import Message from './components/message';
+import Navigation from './components/navigation';
+import { Route, Switch } from "react-router-dom";
 import './App.css';
+import SearchPage from './components/searchPage';
+import UploadPage from './components/uploadPage';
 
 var index = new FlexSearch({
   encode: "balance",
@@ -62,13 +59,28 @@ const initialState = {
   results: [],
   limit: 100,
   dateFrom: null,
-  dateUntil: dateUntil
+  dateUntil: dateUntil,
+  navOpen: false,
+  route: 'Search'
 }
+
 
 class App extends React.Component {
   constructor() {
     super();
     this.state = initialState;
+  }
+
+  onRouteChange = (route) => {
+    this.setState({ route: route })
+  }
+
+  handleDrawerOpen = () => {
+    this.setState({ navOpen: true });
+  }
+
+  handleDrawerClose =() => {
+    this.setState({ navOpen: false });
   }
 
   onSearchChange = (event) => {
@@ -149,33 +161,43 @@ class App extends React.Component {
     })
   }
 
-  render() {
+  renderSearchPage = () => {
+    const { dateFrom, dateUntil, results} = this.state;
+
     return (
-      <MuiPickersUtilsProvider utils={DateFnsUtils}>
-        <main role="main" className='App'>
-          <Header/>
-          <TorrentSearch 
-            className='center'
-            onSearchChange={this.onSearchChange} 
-            onSubmitSearch={this.onSubmitSearch} 
-            onKeyPress={this.onKeyPress}
-            onDateChangeFrom={this.onDateChangeFrom}
-            dateValueFrom={this.state.dateFrom}
-            onDateChangeUntil={this.onDateChangeUntil}
-            dateValueUntil={this.state.dateUntil}
-            onClickSevenDays={this.onClickSevenDays}
-          />
-          <Divider variant="middle" />
-          <br />
-          { this.state.results.length === 0 ?
-          <Message />
-          :
-          <ResultList 
-            results={this.state.results}
-          />
-          }
+      <SearchPage  
+        onSearchChange={this.onSearchChange} 
+        onSubmitSearch={this.onSubmitSearch} 
+        onKeyPress={this.onKeyPress}
+        onDateChangeFrom={this.onDateChangeFrom}
+        dateValueFrom={dateFrom}
+        onDateChangeUntil={this.onDateChangeUntil}
+        dateValueUntil={dateUntil}
+        onClickSevenDays={this.onClickSevenDays}
+        results={results}
+      />
+    );
+  }
+
+  render() {
+    const { navOpen } = this.state;
+
+    return (
+      <div>
+        <Navigation 
+          handleDrawerOpen={this.handleDrawerOpen}
+          handleDrawerClose={this.handleDrawerClose}
+          open={navOpen}
+          onRouteChange={this.onRouteChange}
+        />
+        <main role='main' className='App'>
+          <Switch>
+            <Route exact path="/" component={this.renderSearchPage} />
+            <Route path="/search" component={this.renderSearchPage} />
+            <Route path="/upload" component={UploadPage} />
+          </Switch>
         </main>
-      </MuiPickersUtilsProvider>
+      </div>
     );
   }
 }
