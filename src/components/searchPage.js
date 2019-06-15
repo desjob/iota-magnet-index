@@ -33,7 +33,7 @@ const SearchPage = ({
             <Divider variant="middle" />
             <br />
             { results.length === 0 ?
-                <Message />
+                <Message>No results yet.</Message>
                 :
                 <ResultList
                 results={results}

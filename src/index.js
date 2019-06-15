@@ -7,9 +7,9 @@ import {createStore, applyMiddleware, combineReducers} from 'redux';
 import {Provider} from 'react-redux';
 import {createLogger} from 'redux-logger';
 import thunkMiddleware from 'redux-thunk';
-import {searchCriteria, searchResults, searchIndex} from "./reducers";
+import {searchCriteria, searchResults, searchIndex, navigation} from "./reducers";
 
-const rootReducer = combineReducers({searchCriteria, searchResults, searchIndex});
+const rootReducer = combineReducers({searchCriteria, searchResults, searchIndex, navigation});
 
 const reduxLogger = createLogger();
 const store = createStore(rootReducer, applyMiddleware(thunkMiddleware, reduxLogger));

@@ -1,11 +1,11 @@
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 
-  const Message = () => {
+  const Message = (props) => {
     return(
         <div>
             <Typography variant="body1">
-                No results yet.
+                {props.children}
             </Typography>
         </div>
     );

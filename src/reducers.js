@@ -1,8 +1,13 @@
 import {
     SET_SEARCH_QUERY,
+    SET_SEARCH_DATE_FROM,
+    SET_SEARCH_DATE_UNTIL,
     SEARCH_PENDING,
     SEARCH_SUCCESS,
-    SEARCH_FAIL
+    SEARCH_FAIL,
+    CHANGE_ROUTE,
+    OPEN_NAVBAR,
+    CLOSE_NAVBAR
 } from './constants.js';
 
 import FlexSearch from "flexsearch";
@@ -20,7 +25,11 @@ const initialStateSearchCriteria = {
 export const searchCriteria = (state = initialStateSearchCriteria, action = {}) => {
     switch(action.type) {
         case SET_SEARCH_QUERY:
-            return Object.assign({}, state, {searchQuery: action.payload})
+            return Object.assign({}, state, {searchQuery: action.payload});
+        case SET_SEARCH_DATE_FROM:
+            return Object.assign({}, state, {dateFrom: action.payload});
+        case SET_SEARCH_DATE_UNTIL:
+            return Object.assign({}, state, {dateUntil: action.payload});
         default:
             return state;
     }
@@ -96,6 +105,28 @@ const initialStateSearchIndex = {
 
 export const searchIndex = (state = initialStateSearchIndex, action = {}) => {
     switch(action) {
+        default:
+            return state;
+    }
+}
+
+const initialStateNavigation = {
+    route: 'Search',
+    navOpen: false
+}
+
+export const navigation = (state = initialStateNavigation, action = {}) => {
+
+    switch(action.type) {
+        case CHANGE_ROUTE:
+            return Object.assign({}, state, {route: action.payload});
+
+        case OPEN_NAVBAR:
+            return Object.assign({}, state, {navOpen: true});
+
+        case CLOSE_NAVBAR:
+            return Object.assign({}, state, {navOpen: false});
+
         default:
             return state;
     }

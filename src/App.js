@@ -1,178 +1,88 @@
 import React from 'react';
 import Navigation from './components/navigation';
-import { Route, Switch } from "react-router-dom";
+import {Route, Switch} from "react-router-dom";
 import './App.css';
 import SearchPage from './components/searchPage';
 import UploadPage from './components/uploadPage';
 import {connect} from 'react-redux';
-import {setSearchQuery, performSearch}  from './actions';
-
-// var index = new FlexSearch({
-//   encode: "balance",
-//   tokenize: "strict",
-//   threshold: 0,
-//   resolution: 3,
-//   depth: 4,
-//   async: true,
-//   doc: {
-//     id: "id",
-//     field: [
-//       "title",
-//       "date"
-//     ]
-//   }
-// });
-//
-// var doc1 = {
-//     id: 1,
-//     title: "Game of Thrones season 1 episode 3",
-//     url: "magnet:?xt=bla",
-//     date: new Date("2019-06-05 00:00:00")
-// }
-//
-// var doc2 = {
-//     id: 2,
-//     title: "Game of Thrones season 8 ep 5",
-//     url: "magnet:?xt=blb",
-//     date: new Date("2019-05-29 00:00:00")
-//
-// }
-//
-// var doc3 = {
-//   id: 3,
-//   title: "Game of Thrones season 8 episode 5",
-//   url: "magnet:?xt=bla",
-//   date: new Date("2019-05-30 00:00:00")
-//
-// }
-//
-// index.add([doc1, doc2, doc3]);
-
-const dateUntil = new Date();
-dateUntil.setHours(0, 0, 0, 0);
-
-const dateMinusSeven = new Date();
-dateMinusSeven.setDate(dateMinusSeven.getDate()-6);
-dateMinusSeven.setHours(0, 0, 0, 0);
-
-const initialState = {
-  navOpen: false,
-  route: 'Search'
-}
-
+import {
+    setSearchQuery,
+    setFromDate,
+    setUntilDate,
+    performSearch,
+    changeRoute,
+    openNavBar,
+    closeNavbar
+} from './actions';
 
 const mapStateToProps = (state) => {
-  return {
-    searchQuery: state.searchCriteria.searchQuery,
-    index: state.searchIndex.index,
-    dateFrom: state.searchCriteria.dateFrom,
-    dateUntil: state.searchCriteria.dateUntil,
-    limit: state.searchCriteria.limit,
-    results: state.searchResults.results
-  }
+    return {
+        searchQuery: state.searchCriteria.searchQuery,
+        index: state.searchIndex.index,
+        dateFrom: state.searchCriteria.dateFrom,
+        dateUntil: state.searchCriteria.dateUntil,
+        limit: state.searchCriteria.limit,
+        results: state.searchResults.results,
+        navOpen: state.navigation.navOpen,
+    }
 };
 
 const mapDispatchToProps = (dispatch) => {
-
-  return {
-    onSearchChange: (event) => dispatch(setSearchQuery(event.target.value)),
-    onSubmitSearch: () => dispatch(performSearch())
-  }
+    return {
+        onSearchChange: (event) => dispatch(setSearchQuery(event.target.value)),
+        onSubmitSearch: () => dispatch(performSearch()),
+        onRouteChange: (route) => dispatch(changeRoute(route)),
+        handleDrawerOpen: () => dispatch(openNavBar()),
+        handleDrawerClose: () => dispatch(closeNavbar()),
+        onDateChangeFrom: (date) => dispatch(setFromDate(date)),
+        onDateChangeUntil: (date) => dispatch(setUntilDate(date)),
+    }
 };
 
-
 class App extends React.Component {
-  constructor() {
-    super();
-    this.state = initialState;
-  }
 
-  onRouteChange = (route) => {
-    this.setState({ route: route })
-  }
+    renderSearchPage = () => {
+        const {searchQuery, onSearchChange, onSubmitSearch, dateFrom, dateUntil, results, onDateChangeFrom, onDateChangeUntil} = this.props;
 
-  handleDrawerOpen = () => {
-    this.setState({ navOpen: true });
-  }
-
-  handleDrawerClose =() => {
-    this.setState({ navOpen: false });
-  }
-
-  onKeyPress = (event) => {
-      if(event.key === 'Enter'){
-          this.props.onSubmitSearch();
-      }
-  }
-
-  onDateChangeFrom = (dateValueFrom) => {
-    if (dateValueFrom != null)
-    {
-      dateValueFrom.setHours(0,0,0,0);
+        return (
+            <SearchPage
+                searchQuery={searchQuery}
+                onSearchChange={onSearchChange}
+                onSubmitSearch={onSubmitSearch}
+                onDateChangeFrom={onDateChangeFrom}
+                dateValueFrom={dateFrom}
+                onDateChangeUntil={onDateChangeUntil}
+                dateValueUntil={dateUntil}
+                results={results}
+            />
+        );
     }
 
-    this.setState({
-      dateFrom: dateValueFrom
-    })
-  }
-
-  onDateChangeUntil = (dateValueUntil) => {
-    if (dateValueUntil != null)
-    {
-      dateValueUntil.setHours(0,0,0,0);
+    renderUploadPage = () =>  {
+        return (
+            <UploadPage/>
+        );
     }
 
-    this.setState({
-      dateUntil: dateValueUntil
-    })
-  }
-
-  onClickSevenDays = () => {
-    this.setState({
-      dateUntil: dateUntil,
-      dateFrom: dateMinusSeven
-    })
-  }
-
-  renderSearchPage = () => {
-    const { searchQuery,onSearchChange, onSubmitSearch, dateFrom, dateUntil, results} = this.props;
-
-    return (
-      <SearchPage
-        searchQuery={searchQuery}
-        onSearchChange={onSearchChange}
-        onSubmitSearch={onSubmitSearch}
-        onKeyPress={this.onKeyPress}
-        onDateChangeFrom={this.onDateChangeFrom}
-        dateValueFrom={dateFrom}
-        onDateChangeUntil={this.onDateChangeUntil}
-        dateValueUntil={dateUntil}
-        onClickSevenDays={this.onClickSevenDays}
-        results={results}
-      />
-    );
-  }
-
-  render() {
-    const { navOpen } = this.state;
-
-    return (
-      <div>
-        <Navigation
-          handleDrawerOpen={this.handleDrawerOpen}
-          handleDrawerClose={this.handleDrawerClose}
-          open={navOpen}
-          onRouteChange={this.onRouteChange}
-        />
-        <main role='main' className='App'>
-          <Switch>
-            <Route exact path="/" component={this.renderSearchPage} />
-            <Route path="/search" component={this.renderSearchPage} />
-            <Route path="/upload" component={UploadPage} />
-          </Switch>
-        </main>
-      </div>
-    );
-  }
+    render() {
+        return (
+            <div>
+                <Navigation
+                    handleDrawerOpen={this.props.handleDrawerOpen}
+                    handleDrawerClose={this.props.handleDrawerClose}
+                    open={this.props.navOpen}
+                    onRouteChange={this.props.onRouteChange}
+                />
+                <main role='main' className='App'>
+                    <Switch>
+                        <Route exact path="/" component={this.renderSearchPage}/>
+                        <Route path="/search" component={this.renderSearchPage}/>
+                        <Route path="/upload" component={this.renderUploadPage}/>
+                    </Switch>
+                </main>
+            </div>
+        );
+    }
 }
+
 export default connect(mapStateToProps, mapDispatchToProps)(App);
