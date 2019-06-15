@@ -1,51 +1,52 @@
 import React from 'react';
-import FlexSearch from 'flexsearch';
 import Navigation from './components/navigation';
 import { Route, Switch } from "react-router-dom";
 import './App.css';
 import SearchPage from './components/searchPage';
 import UploadPage from './components/uploadPage';
+import {connect} from 'react-redux';
+import {setSearchQuery, performSearch}  from './actions';
 
-var index = new FlexSearch({
-  encode: "balance",
-  tokenize: "strict",
-  threshold: 0,
-  resolution: 3,
-  depth: 4,
-  async: true,
-  doc: {
-    id: "id",
-    field: [
-      "title",
-      "date"
-    ]
-  }
-});
-
-var doc1 = {
-    id: 1,
-    title: "Game of Thrones season 1 episode 3",
-    url: "magnet:?xt=bla",
-    date: new Date("2019-06-05 00:00:00")
-}
-
-var doc2 = {
-    id: 2,
-    title: "Game of Thrones season 8 ep 5",
-    url: "magnet:?xt=blb",
-    date: new Date("2019-05-29 00:00:00")
-
-}
-
-var doc3 = {
-  id: 3,
-  title: "Game of Thrones season 8 episode 5",
-  url: "magnet:?xt=bla",
-  date: new Date("2019-05-30 00:00:00")
-
-}
-
-index.add([doc1, doc2, doc3]);
+// var index = new FlexSearch({
+//   encode: "balance",
+//   tokenize: "strict",
+//   threshold: 0,
+//   resolution: 3,
+//   depth: 4,
+//   async: true,
+//   doc: {
+//     id: "id",
+//     field: [
+//       "title",
+//       "date"
+//     ]
+//   }
+// });
+//
+// var doc1 = {
+//     id: 1,
+//     title: "Game of Thrones season 1 episode 3",
+//     url: "magnet:?xt=bla",
+//     date: new Date("2019-06-05 00:00:00")
+// }
+//
+// var doc2 = {
+//     id: 2,
+//     title: "Game of Thrones season 8 ep 5",
+//     url: "magnet:?xt=blb",
+//     date: new Date("2019-05-29 00:00:00")
+//
+// }
+//
+// var doc3 = {
+//   id: 3,
+//   title: "Game of Thrones season 8 episode 5",
+//   url: "magnet:?xt=bla",
+//   date: new Date("2019-05-30 00:00:00")
+//
+// }
+//
+// index.add([doc1, doc2, doc3]);
 
 const dateUntil = new Date();
 dateUntil.setHours(0, 0, 0, 0);
@@ -55,14 +56,29 @@ dateMinusSeven.setDate(dateMinusSeven.getDate()-6);
 dateMinusSeven.setHours(0, 0, 0, 0);
 
 const initialState = {
-  search: '',
-  results: [],
-  limit: 100,
-  dateFrom: null,
-  dateUntil: dateUntil,
   navOpen: false,
   route: 'Search'
 }
+
+
+const mapStateToProps = (state) => {
+  return {
+    searchQuery: state.searchCriteria.searchQuery,
+    index: state.searchIndex.index,
+    dateFrom: state.searchCriteria.dateFrom,
+    dateUntil: state.searchCriteria.dateUntil,
+    limit: state.searchCriteria.limit,
+    results: state.searchResults.results
+  }
+};
+
+const mapDispatchToProps = (dispatch) => {
+
+  return {
+    onSearchChange: (event) => dispatch(setSearchQuery(event.target.value)),
+    onSubmitSearch: () => dispatch(performSearch())
+  }
+};
 
 
 class App extends React.Component {
@@ -83,52 +99,9 @@ class App extends React.Component {
     this.setState({ navOpen: false });
   }
 
-  onSearchChange = (event) => {
-    this.setState({ 
-      search: event.target.value
-    }, () => {if (this.state.search === '')
-    {
-      this.setState({
-        results: []
-      })
-    }});
-  }
-
-  onSubmitSearch = () => {
-    const searchQuery = {
-      field: "title",
-      query: this.state.search,
-      suggest: true,
-      limit: this.state.limit
-    }
-
-    if(this.state.dateFrom !== null){
-      searchQuery.where = (item) => {
-        return item.date >= this.state.dateFrom 
-        && item.date <= this.state.dateUntil
-      };
-    }
-    else {
-      searchQuery.where = (item) => {
-        return item.date <= this.state.dateUntil
-      };
-    }
-
-    index.search(searchQuery)
-    .then((results) => {
-      var resultsByDate = results.sort( (a, b) => {
-        a = new Date(a.date);
-        b = new Date(b.date);
-        return a>b ? -1 : a<b ? 1 : 0;
-      });
-
-      this.setState({ results: resultsByDate });
-    });
-  }
-
   onKeyPress = (event) => {
       if(event.key === 'Enter'){
-          this.onSubmitSearch();
+          this.props.onSubmitSearch();
       }
   }
 
@@ -162,12 +135,13 @@ class App extends React.Component {
   }
 
   renderSearchPage = () => {
-    const { dateFrom, dateUntil, results} = this.state;
+    const { searchQuery,onSearchChange, onSubmitSearch, dateFrom, dateUntil, results} = this.props;
 
     return (
-      <SearchPage  
-        onSearchChange={this.onSearchChange} 
-        onSubmitSearch={this.onSubmitSearch} 
+      <SearchPage
+        searchQuery={searchQuery}
+        onSearchChange={onSearchChange}
+        onSubmitSearch={onSubmitSearch}
         onKeyPress={this.onKeyPress}
         onDateChangeFrom={this.onDateChangeFrom}
         dateValueFrom={dateFrom}
@@ -184,7 +158,7 @@ class App extends React.Component {
 
     return (
       <div>
-        <Navigation 
+        <Navigation
           handleDrawerOpen={this.handleDrawerOpen}
           handleDrawerClose={this.handleDrawerClose}
           open={navOpen}
@@ -201,5 +175,4 @@ class App extends React.Component {
     );
   }
 }
-
-export default App;
+export default connect(mapStateToProps, mapDispatchToProps)(App);

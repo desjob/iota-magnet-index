@@ -5,6 +5,7 @@ import Divider from '@material-ui/core/Divider';
 import Message from './message';
 
 const SearchPage = ({
+    searchQuery,
     onSearchChange,
     onSubmitSearch,
     onKeyPress,
@@ -19,8 +20,9 @@ const SearchPage = ({
         <div>
             <TorrentSearch
                 className='center'
-                onSearchChange={onSearchChange} 
-                onSubmitSearch={onSubmitSearch} 
+                searchQuery={searchQuery}
+                onSearchChange={onSearchChange}
+                onSubmitSearch={onSubmitSearch}
                 onKeyPress={onKeyPress}
                 onDateChangeFrom={onDateChangeFrom}
                 dateValueFrom={dateValueFrom}
@@ -33,7 +35,7 @@ const SearchPage = ({
             { results.length === 0 ?
                 <Message />
                 :
-                <ResultList 
+                <ResultList
                 results={results}
                 />
             }

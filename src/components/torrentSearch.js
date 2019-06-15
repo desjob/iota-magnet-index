@@ -4,9 +4,10 @@ import Button from '@material-ui/core/Button';
 import DateRangePicker from "./dateRangePicker";
 import './torrentSearch.css';
 
-const TorrentSearch = ({ 
-	onSearchChange, 
-	onSubmitSearch, 
+const TorrentSearch = ({
+   searchQuery,
+	onSearchChange,
+	onSubmitSearch,
 	onKeyPress,
 	onDateChangeFrom,
 	dateValueFrom,
@@ -18,6 +19,7 @@ const TorrentSearch = ({
 		<div>
 			<div className="margins">
 				<TextField
+					value={searchQuery}
 					type='search'
 					id="search"
 					label="Search torrents"
@@ -37,9 +39,9 @@ const TorrentSearch = ({
 				/>
 			</div>
 			<div className="margins">
-				<Button 
-					variant="contained" 
-					color="primary" 
+				<Button
+					variant="contained"
+					color="primary"
 					onClick={onSubmitSearch}
 				>Search
 				</Button>
