@@ -16,7 +16,8 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import SearchRounded from '@material-ui/icons/SearchRounded';
-import CloudUploadRounded from '@material-ui/icons/CloudUploadRounded';
+import PublishRounded from '@material-ui/icons/PublishRounded';
+import GroupRounded from '@material-ui/icons/GroupRounded';
 import { Link } from 'react-router-dom';
 
 const drawerWidth = 160;
@@ -78,10 +79,10 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const Navigation = ({ 
-    handleDrawerOpen, 
-    handleDrawerClose, 
-    open, 
+const Navigation = ({
+    handleDrawerOpen,
+    handleDrawerClose,
+    open,
     onRouteChange
 }) => {
   const classes = useStyles();
@@ -134,19 +135,25 @@ const Navigation = ({
         </div>
         <Divider />
         <List>
-          {['Upload', 'Search'].map((text, index) => (
-            <li key={text}>
-                <ListItem 
-                    button 
-                    key={text} 
-                    onClick={() => onRouteChange(text)}
+          {[
+              {route: 'search', name: 'Search', icon: SearchRounded},
+              {route: 'sources', name: 'Manage sources', icon: GroupRounded},
+              {route: 'publish', name: 'Publish', icon: PublishRounded},
+              {route: 'about', name: 'About', icon: PublishRounded},
+              {route: 'disclaimer', name: 'Disclaimer', icon: PublishRounded},
+          ].map((menuItem, index) => (
+            <li key={menuItem.name}>
+                <ListItem
+                    button
+                    key={index}
+                    onClick={() => onRouteChange(menuItem.route)}
                     component={Link}
-                    to={"/"+text}
+                    to={menuItem.route}
                 >
                     <ListItemIcon>
-                        {index % 2 === 0 ? <CloudUploadRounded /> : <SearchRounded />}
+                        {React.createElement(menuItem.icon)}
                     </ListItemIcon>
-                    <ListItemText primary={text} />
+                    <ListItemText primary={menuItem.name} />
                 </ListItem>
             </li>
           ))}
