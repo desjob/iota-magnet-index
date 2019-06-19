@@ -1,8 +1,8 @@
 import React from 'react';
-import TorrentSearch from './torrentSearch';
-import ResultList from './resultList';
+import TorrentSearch from '../components/torrentSearch';
+import ResultList from '../components/resultList';
 import Divider from '@material-ui/core/Divider';
-import Message from './message';
+import Message from '../components/message';
 
 const SearchPage = ({
     searchQuery,

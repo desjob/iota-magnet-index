@@ -17,10 +17,12 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import SearchRounded from '@material-ui/icons/SearchRounded';
 import PublishRounded from '@material-ui/icons/PublishRounded';
+import InfoRounded from '@material-ui/icons/InfoRounded';
+import GavelRounded from '@material-ui/icons/GavelRounded';
 import GroupRounded from '@material-ui/icons/GroupRounded';
 import { Link } from 'react-router-dom';
 
-const drawerWidth = 160;
+const drawerWidth = 190;
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -137,10 +139,10 @@ const Navigation = ({
         <List>
           {[
               {route: 'search', name: 'Search', icon: SearchRounded},
-              {route: 'sources', name: 'Manage sources', icon: GroupRounded},
+              {route: 'sources', name: 'My sources', icon: GroupRounded},
               {route: 'publish', name: 'Publish', icon: PublishRounded},
-              {route: 'about', name: 'About', icon: PublishRounded},
-              {route: 'disclaimer', name: 'Disclaimer', icon: PublishRounded},
+              {route: 'about', name: 'About', icon: InfoRounded},
+              {route: 'disclaimer', name: 'Disclaimer', icon: GavelRounded},
           ].map((menuItem, index) => (
             <li key={menuItem.name}>
                 <ListItem
