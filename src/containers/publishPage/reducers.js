@@ -32,8 +32,6 @@ const mamConfig = {
 
 const mamState = Mam.init(mamConfig);
 
-console.log(mamState);
-
 const intialStatePublish = {
     isPending: false,
     originalRoot: null,
@@ -55,9 +53,6 @@ export const publish = (state = intialStatePublish, action = {}) => {
         case PUBLISH_PENDING:
             return Object.assign({}, state, {isPending: true});
         case PUBLISH_SUCCESS:
-
-            console.log(action.payload);
-
             const originalRoot = state.originalRoot ? state.originalRoot : action.payload.root;
             return Object.assign({}, state, {originalRoot: originalRoot, count: action.payload.state.channel.start, mamState: action.payload.state, description: '', magnetLink: '', isPending: false});
         case PUBLISH_FAIL:
