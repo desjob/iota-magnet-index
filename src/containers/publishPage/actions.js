@@ -17,7 +17,8 @@ export const performPublish = () => (dispatch, getState) => {
 
     const mamMessageObject = {
         m: publish.magnetLink,
-        d: publish.description
+        d: publish.description,
+        t: (new Date()).valueOf()
     }
 
     const message = Mam.create(publish.mamState, Converter.asciiToTrytes(JSON.stringify(mamMessageObject)));
