@@ -6,11 +6,11 @@ import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
 import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
-import Fab from '@material-ui/core/Fab';
-import AddIcon from '@material-ui/icons/Add';
 import {setPublishDescription, setPublishMagnetLink, performPublish} from "./actions";
 import {connect} from 'react-redux';
 import NodeConfig from '../nodeConfig/nodeConfig';
+// import Fab from '@material-ui/core/Fab';
+// import AddIcon from '@material-ui/icons/Add';
 
 const styles = () => ({
     paper: {
@@ -106,15 +106,11 @@ class PublishPage extends React.Component {
                                 disabled={isPending}
                             />
 
-                            {/*<Fab color="primary" size="medium" aria-label="Add">*/}
+                            {/*<Fab color="primary" size="small" aria-label="Add">*/}
                             {/*    <AddIcon/>*/}
                             {/*</Fab>*/}
 
                         </div>
-
-                        {/*<div className={classes.row}>*/}
-                        {/*    <Divider variant="middle"/>*/}
-                        {/*</div>*/}
 
                         <div className={classes.row}>
                             <Button
