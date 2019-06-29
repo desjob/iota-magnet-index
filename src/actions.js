@@ -7,8 +7,9 @@ import {
     SEARCH_FAIL,
     CHANGE_ROUTE,
     OPEN_NAVBAR,
-    CLOSE_NAVBAR
+    CLOSE_NAVBAR,
 } from './constants.js';
+
 
 export const setSearchQuery = (text) => ({
     type: SET_SEARCH_QUERY,
@@ -53,7 +54,10 @@ export const performSearch = () => (dispatch, getState) => {
         .catch(error => {
             dispatch({type: SEARCH_FAIL, payload: error})
         });
-}
+};
+
+
+
 
 export const changeRoute = (route) => ({
     type: CHANGE_ROUTE,
