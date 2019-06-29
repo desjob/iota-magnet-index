@@ -10,10 +10,14 @@ import {
     CLOSE_NAVBAR
 } from './constants.js';
 
-export const setSearchQuery = (text) => ({
-    type: SET_SEARCH_QUERY,
-    payload: text
-});
+export const setSearchQuery = (text) => (dispatch) => {
+    dispatch({ type: SET_SEARCH_QUERY, payload: text });
+
+    if (text === '') 
+    {
+        dispatch({ type: SEARCH_SUCCESS, payload: [] });
+    }
+};
 
 export const performSearch = () => (dispatch, getState) => {
 
@@ -40,7 +44,8 @@ export const performSearch = () => (dispatch, getState) => {
         };
     }
 
-    searchIndex.index.search(search)
+    setTimeout(() => {
+        searchIndex.index.search(search)
         .then((results) => {
             var resultsByDate = results.sort( (a, b) => {
                 a = new Date(a.date);
@@ -53,6 +58,7 @@ export const performSearch = () => (dispatch, getState) => {
         .catch(error => {
             dispatch({type: SEARCH_FAIL, payload: error})
         });
+    }, 1500);
 }
 
 export const changeRoute = (route) => ({

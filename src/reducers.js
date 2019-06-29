@@ -35,7 +35,6 @@ export const searchCriteria = (state = initialStateSearchCriteria, action = {}) 
     }
 }
 
-
 const initialStateSearchResults = {
     isPending: false,
     results: [],
@@ -54,9 +53,6 @@ export const searchResults = (state = initialStateSearchResults, action = {}) =>
             return state;
     }
 }
-
-
-
 
 var index = new FlexSearch({
     encode: "balance",

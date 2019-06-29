@@ -3,6 +3,7 @@ import TorrentSearch from '../components/torrentSearch';
 import ResultList from '../components/resultList';
 import Divider from '@material-ui/core/Divider';
 import Message from '../components/message';
+import Loader from '../components/loader';
 
 const SearchPage = ({
     searchQuery,
@@ -14,7 +15,8 @@ const SearchPage = ({
     onClickSevenDays,
     dateValueFrom,
     dateValueUntil,
-    results
+    results,
+    isPending
 }) => {
     return (
         <div>
@@ -32,7 +34,11 @@ const SearchPage = ({
             />
             <Divider variant="middle" />
             <br />
-            { results.length === 0 ?
+            { 
+                isPending === true ?
+                <Loader></Loader>
+                :
+                results.length === 0 ?
                 <Message>No results yet.</Message>
                 :
                 <ResultList

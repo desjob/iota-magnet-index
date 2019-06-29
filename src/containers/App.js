@@ -27,6 +27,7 @@ const mapStateToProps = (state) => {
         limit: state.searchCriteria.limit,
         results: state.searchResults.results,
         navOpen: state.navigation.navOpen,
+        isPending: state.searchResults.isPending
     }
 };
 
@@ -45,7 +46,7 @@ const mapDispatchToProps = (dispatch) => {
 class App extends React.Component {
 
     renderSearchPage = () => {
-        const {searchQuery, onSearchChange, onSubmitSearch, dateFrom, dateUntil, results, onDateChangeFrom, onDateChangeUntil} = this.props;
+        const {searchQuery, onSearchChange, onSubmitSearch, dateFrom, dateUntil, results, onDateChangeFrom, onDateChangeUntil, isPending} = this.props;
 
         return (
             <SearchPage
@@ -57,6 +58,7 @@ class App extends React.Component {
                 onDateChangeUntil={onDateChangeUntil}
                 dateValueUntil={dateUntil}
                 results={results}
+                isPending={isPending}
             />
         );
     }
