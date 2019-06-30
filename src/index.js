@@ -11,8 +11,8 @@ import {searchCriteria, searchResults, navigation} from "./reducers";
 import {publish} from './containers/publishPage/reducers';
 import {subscriptions} from './containers/subscriptionsPage/reducers';
 
-
 const rootReducer = combineReducers({searchCriteria, searchResults, subscriptions, navigation, publish});
+
 
 const reduxLogger = createLogger();
 const store = createStore(rootReducer, applyMiddleware(thunkMiddleware, reduxLogger));
