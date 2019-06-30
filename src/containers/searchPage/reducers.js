@@ -38,6 +38,11 @@ const initialStateSearchResults = {
 
 export const searchResults = (state = initialStateSearchResults, action = {}) => {
     switch(action.type) {
+        case SET_SEARCH_QUERY:
+            if (action.payload === '') {
+                return Object.assign({}, state, {results: []});
+            }
+            return state;
         case SEARCH_PENDING:
             return Object.assign({}, state, {isPending: true});
         case SEARCH_SUCCESS:

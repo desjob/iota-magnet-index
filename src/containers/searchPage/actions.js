@@ -7,14 +7,10 @@ import {
     SEARCH_FAIL,
 } from './constants.js';
 
-export const setSearchQuery = (text) => (dispatch) => {
-    dispatch({ type: SET_SEARCH_QUERY, payload: text });
-
-    if (text === '') 
-    {
-        dispatch({ type: SEARCH_SUCCESS, payload: [] });
-    }
-};
+export const setSearchQuery = (text) => ({
+    type: SET_SEARCH_QUERY,
+    payload: text
+});
 
 export const performSearch = () => (dispatch, getState) => {
 
