@@ -3,7 +3,7 @@ import Navigation from '../components/navigation';
 import {Route, Switch} from "react-router-dom";
 import './App.css';
 import SearchPage from './searchPage';
-import PublishPage from './publishPage';
+import PublishPage from './publishPage/publishPage';
 import SourcesPage from './sourcesPage';
 import AboutPage from './aboutPage';
 import DisclaimerPage from './disclaimerPage';

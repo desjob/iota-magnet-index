@@ -8,8 +8,10 @@ import {Provider} from 'react-redux';
 import {createLogger} from 'redux-logger';
 import thunkMiddleware from 'redux-thunk';
 import {searchCriteria, searchResults, searchIndex, navigation} from "./reducers";
+import {publish} from './containers/publishPage/reducers';
 
-const rootReducer = combineReducers({searchCriteria, searchResults, searchIndex, navigation});
+
+const rootReducer = combineReducers({searchCriteria, searchResults, searchIndex, navigation, publish});
 
 const reduxLogger = createLogger();
 const store = createStore(rootReducer, applyMiddleware(thunkMiddleware, reduxLogger));
