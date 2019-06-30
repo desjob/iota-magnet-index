@@ -2,17 +2,13 @@ import React from 'react';
 import Navigation from '../components/navigation';
 import {Route, Switch} from "react-router-dom";
 import './App.css';
-import SearchPage from './searchPage';
+import SearchPage from './searchPage/searchPage';
 import PublishPage from './publishPage/publishPage';
 import SubscriptionsPage from '../containers/subscriptionsPage/subscriptionsPage';
 import AboutPage from './aboutPage';
 import DisclaimerPage from './disclaimerPage';
 import {connect} from 'react-redux';
 import {
-    setSearchQuery,
-    setFromDate,
-    setUntilDate,
-    performSearch,
     changeRoute,
     openNavBar,
     closeNavbar
@@ -20,45 +16,23 @@ import {
 
 const mapStateToProps = (state) => {
     return {
-        searchQuery: state.searchCriteria.searchQuery,
-        dateFrom: state.searchCriteria.dateFrom,
-        dateUntil: state.searchCriteria.dateUntil,
-        limit: state.searchCriteria.limit,
-        results: state.searchResults.results,
         navOpen: state.navigation.navOpen,
-        isPending: state.searchResults.isPending
     }
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onSearchChange: (event) => dispatch(setSearchQuery(event.target.value)),
-        onSubmitSearch: () => dispatch(performSearch()),
         onRouteChange: (route) => dispatch(changeRoute(route)),
         handleDrawerOpen: () => dispatch(openNavBar()),
         handleDrawerClose: () => dispatch(closeNavbar()),
-        onDateChangeFrom: (date) => dispatch(setFromDate(date)),
-        onDateChangeUntil: (date) => dispatch(setUntilDate(date)),
     }
 };
 
 class App extends React.Component {
 
     renderSearchPage = () => {
-        const {searchQuery, onSearchChange, onSubmitSearch, dateFrom, dateUntil, results, onDateChangeFrom, onDateChangeUntil, isPending} = this.props;
-
         return (
-            <SearchPage
-                searchQuery={searchQuery}
-                onSearchChange={onSearchChange}
-                onSubmitSearch={onSubmitSearch}
-                onDateChangeFrom={onDateChangeFrom}
-                dateValueFrom={dateFrom}
-                onDateChangeUntil={onDateChangeUntil}
-                dateValueUntil={dateUntil}
-                results={results}
-                isPending={isPending}
-            />
+            <SearchPage/>
         );
     }
 

@@ -7,7 +7,8 @@ import {createStore, applyMiddleware, combineReducers} from 'redux';
 import {Provider} from 'react-redux';
 import {createLogger} from 'redux-logger';
 import thunkMiddleware from 'redux-thunk';
-import {searchCriteria, searchResults, navigation} from "./reducers";
+import {navigation} from "./reducers";
+import {searchCriteria, searchResults} from "./containers/searchPage/reducers";
 import {publish} from './containers/publishPage/reducers';
 import {subscriptions} from './containers/subscriptionsPage/reducers';
 
