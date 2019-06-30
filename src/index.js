@@ -7,11 +7,12 @@ import {createStore, applyMiddleware, combineReducers} from 'redux';
 import {Provider} from 'react-redux';
 import {createLogger} from 'redux-logger';
 import thunkMiddleware from 'redux-thunk';
-import {searchCriteria, searchResults, searchIndex, navigation} from "./reducers";
+import {searchCriteria, searchResults, navigation} from "./reducers";
 import {publish} from './containers/publishPage/reducers';
+import {subscriptions} from './containers/subscriptionsPage/reducers';
 
 
-const rootReducer = combineReducers({searchCriteria, searchResults, searchIndex, navigation, publish});
+const rootReducer = combineReducers({searchCriteria, searchResults, subscriptions, navigation, publish});
 
 const reduxLogger = createLogger();
 const store = createStore(rootReducer, applyMiddleware(thunkMiddleware, reduxLogger));

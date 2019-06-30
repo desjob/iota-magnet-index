@@ -14,11 +14,11 @@ class TorrentSearch extends React.Component {
 
     onClickSevenDays = () => {
         const dateUntil = new Date();
-        dateUntil.setHours(0, 0, 0, 0);
+        // dateUntil.setHours(0, 0, 0, 0);
 
         const dateMinusSeven = new Date();
         dateMinusSeven.setDate(dateMinusSeven.getDate()-6);
-        dateMinusSeven.setHours(0, 0, 0, 0);
+        // dateMinusSeven.setHours(0, 0, 0, 0);
 
         this.props.onDateChangeFrom(dateMinusSeven);
         this.props.onDateChangeUntil(dateUntil);

@@ -20,7 +20,7 @@ export const performSearch = () => (dispatch, getState) => {
 
     dispatch({type: SEARCH_PENDING});
 
-    const {searchCriteria, searchIndex} = getState();
+    const {searchCriteria, subscriptions} = getState();
 
     const search = {
         field: "title",
@@ -31,17 +31,24 @@ export const performSearch = () => (dispatch, getState) => {
 
     if(searchCriteria.dateFrom !== null){
         search.where = (item) => {
+
+
+
             return item.date >= searchCriteria.dateFrom
                 && item.date <= searchCriteria.dateUntil
         };
     }
     else {
         search.where = (item) => {
+
+            console.log(item.date);
+            console.log(searchCriteria.dateUntil);
+
             return item.date <= searchCriteria.dateUntil
         };
     }
 
-    searchIndex.index.search(search)
+    subscriptions.index.search(search)
         .then((results) => {
             var resultsByDate = results.sort( (a, b) => {
                 a = new Date(a.date);
@@ -75,7 +82,7 @@ export const closeNavbar = () => ({
 export const setFromDate = (date) => {
 
     if (date != null) {
-        date.setHours(0,0,0,0);
+        // date.setHours(0,0,0,0);
     }
 
     return {
@@ -87,7 +94,7 @@ export const setFromDate = (date) => {
 export const setUntilDate = (date) => {
 
     if (date != null) {
-        date.setHours(0,0,0,0);
+        // date.setHours(0,0,0,0);
     }
 
     return {
