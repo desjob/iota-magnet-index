@@ -23,7 +23,7 @@ export const performSearch = () => (dispatch, getState) => {
 
     dispatch({type: SEARCH_PENDING});
 
-    const {searchCriteria, searchIndex} = getState();
+    const {searchCriteria, subscriptions} = getState();
 
     const search = {
         field: "title",
@@ -45,7 +45,7 @@ export const performSearch = () => (dispatch, getState) => {
     }
 
     setTimeout(() => {
-        searchIndex.index.search(search)
+        subscriptions.index.search(search)
         .then((results) => {
             var resultsByDate = results.sort( (a, b) => {
                 a = new Date(a.date);
@@ -89,7 +89,7 @@ export const setFromDate = (date) => {
 export const setUntilDate = (date) => {
 
     if (date != null) {
-        date.setHours(0,0,0,0);
+        date.setHours(23, 59, 59, 999);
     }
 
     return {

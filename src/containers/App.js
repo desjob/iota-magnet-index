@@ -4,7 +4,7 @@ import {Route, Switch} from "react-router-dom";
 import './App.css';
 import SearchPage from './searchPage';
 import PublishPage from './publishPage/publishPage';
-import SourcesPage from './sourcesPage';
+import SubscriptionsPage from '../containers/subscriptionsPage/subscriptionsPage';
 import AboutPage from './aboutPage';
 import DisclaimerPage from './disclaimerPage';
 import {connect} from 'react-redux';
@@ -21,7 +21,6 @@ import {
 const mapStateToProps = (state) => {
     return {
         searchQuery: state.searchCriteria.searchQuery,
-        index: state.searchIndex.index,
         dateFrom: state.searchCriteria.dateFrom,
         dateUntil: state.searchCriteria.dateUntil,
         limit: state.searchCriteria.limit,
@@ -63,9 +62,9 @@ class App extends React.Component {
         );
     }
 
-    renderSourcesPage = () =>  {
+    renderSubscriptionsPage = () =>  {
         return (
-            <SourcesPage/>
+            <SubscriptionsPage/>
         );
     }
 
@@ -100,7 +99,7 @@ class App extends React.Component {
                     <Switch>
                         <Route exact path="/" component={this.renderSearchPage}/>
                         <Route path="/search" component={this.renderSearchPage}/>
-                        <Route path="/sources" component={this.renderSourcesPage}/>
+                        <Route path="/subscriptions" component={this.renderSubscriptionsPage}/>
                         <Route path="/publish" component={this.renderPublishPage}/>
                         <Route path="/about" component={this.renderAboutPage}/>
                         <Route path="/disclaimer" component={this.renderDisclaimerPage}/>

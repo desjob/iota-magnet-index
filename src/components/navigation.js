@@ -139,7 +139,7 @@ const Navigation = ({
         <List>
           {[
               {route: 'search', name: 'Search', icon: SearchRounded},
-              {route: 'sources', name: 'My sources', icon: GroupRounded},
+              {route: 'subscriptions', name: 'My subscriptions', icon: GroupRounded},
               {route: 'publish', name: 'Publish', icon: PublishRounded},
               {route: 'about', name: 'About', icon: InfoRounded},
               {route: 'disclaimer', name: 'Disclaimer', icon: GavelRounded},
