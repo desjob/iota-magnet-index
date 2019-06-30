@@ -1,13 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { HashRouter } from "react-router-dom";
-import App from './containers/App';
+import App from './App';
 import * as serviceWorker from './serviceWorker';
 import {createStore, applyMiddleware, combineReducers} from 'redux';
 import {Provider} from 'react-redux';
 import {createLogger} from 'redux-logger';
 import thunkMiddleware from 'redux-thunk';
-import {navigation} from "./reducers";
+import {navigation} from "./containers/navigation/reducers";
 import {searchCriteria, searchResults} from "./containers/searchPage/reducers";
 import {publish} from './containers/publishPage/reducers';
 import {subscriptions} from './containers/subscriptionsPage/reducers';

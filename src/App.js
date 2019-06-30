@@ -1,32 +1,13 @@
 import React from 'react';
-import Navigation from '../components/navigation';
 import {Route, Switch} from "react-router-dom";
 import './App.css';
-import SearchPage from './searchPage/searchPage';
-import PublishPage from './publishPage/publishPage';
-import SubscriptionsPage from '../containers/subscriptionsPage/subscriptionsPage';
-import AboutPage from './aboutPage';
-import DisclaimerPage from './disclaimerPage';
-import {connect} from 'react-redux';
-import {
-    changeRoute,
-    openNavBar,
-    closeNavbar
-} from '../actions';
+import SearchPage from './containers/searchPage/searchPage';
+import PublishPage from './containers/publishPage/publishPage';
+import SubscriptionsPage from './containers/subscriptionsPage/subscriptionsPage';
+import AboutPage from './containers/aboutPage';
+import DisclaimerPage from './containers/disclaimerPage';
+import Navigation from "./containers/navigation/navigation";
 
-const mapStateToProps = (state) => {
-    return {
-        navOpen: state.navigation.navOpen,
-    }
-};
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        onRouteChange: (route) => dispatch(changeRoute(route)),
-        handleDrawerOpen: () => dispatch(openNavBar()),
-        handleDrawerClose: () => dispatch(closeNavbar()),
-    }
-};
 
 class App extends React.Component {
 
@@ -63,12 +44,8 @@ class App extends React.Component {
     render() {
         return (
             <div>
-                <Navigation
-                    handleDrawerOpen={this.props.handleDrawerOpen}
-                    handleDrawerClose={this.props.handleDrawerClose}
-                    open={this.props.navOpen}
-                    onRouteChange={this.props.onRouteChange}
-                />
+               <Navigation/>
+
                 <main role='main' className='App'>
                     <Switch>
                         <Route exact path="/" component={this.renderSearchPage}/>
@@ -84,4 +61,4 @@ class App extends React.Component {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default App;
