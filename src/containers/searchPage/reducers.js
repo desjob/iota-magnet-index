@@ -5,9 +5,6 @@ import {
     SEARCH_PENDING,
     SEARCH_SUCCESS,
     SEARCH_FAIL,
-    CHANGE_ROUTE,
-    OPEN_NAVBAR,
-    CLOSE_NAVBAR
 } from './constants.js';
 
 var initialDateUntil = new Date();
@@ -33,7 +30,6 @@ export const searchCriteria = (state = initialStateSearchCriteria, action = {}) 
     }
 }
 
-
 const initialStateSearchResults = {
     isPending: false,
     results: [],
@@ -42,34 +38,17 @@ const initialStateSearchResults = {
 
 export const searchResults = (state = initialStateSearchResults, action = {}) => {
     switch(action.type) {
+        case SET_SEARCH_QUERY:
+            if (action.payload === '') {
+                return Object.assign({}, state, {results: []});
+            }
+            return state;
         case SEARCH_PENDING:
             return Object.assign({}, state, {isPending: true});
         case SEARCH_SUCCESS:
             return Object.assign({}, state, {results: action.payload, isPending: false});
         case SEARCH_FAIL:
             return Object.assign({}, state, {error: action.payload, isPending: false});
-        default:
-            return state;
-    }
-}
-
-const initialStateNavigation = {
-    route: 'Search',
-    navOpen: false
-}
-
-export const navigation = (state = initialStateNavigation, action = {}) => {
-
-    switch(action.type) {
-        case CHANGE_ROUTE:
-            return Object.assign({}, state, {route: action.payload});
-
-        case OPEN_NAVBAR:
-            return Object.assign({}, state, {navOpen: true});
-
-        case CLOSE_NAVBAR:
-            return Object.assign({}, state, {navOpen: false});
-
         default:
             return state;
     }

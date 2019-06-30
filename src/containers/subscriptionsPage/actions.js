@@ -47,7 +47,7 @@ export const performUpdateIndex = () => (dispatch, getState) => {
         })
         .catch((err) => {
             console.log(err);
-            dispatch({type: PUBLISH_SUCCESS, payload: []});
+            dispatch({type: UPDATE_INDEX_FAIL, payload: []});
         });
 
 };
