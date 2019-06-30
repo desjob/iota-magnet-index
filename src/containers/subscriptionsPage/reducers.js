@@ -23,38 +23,54 @@ var index = new FlexSearch({
     }
 });
 
+
+const currentTimestampMs = new Date().valueOf();
+
+var doc0 = {
+    id: 0,
+    title: "Game of Thrones season 8 complete",
+    url: "magnet:?xt=bla1",
+    date: new Date(currentTimestampMs - (1 * 1000)) // 1 second ago
+}
+
 var doc1 = {
     id: 1,
-    title: "Game of Thrones season 1 episode 3",
-    url: "magnet:?xt=bla",
-    date: new Date("2019-06-05 00:00:00")
+    title: "Game of Thrones season 8 recap",
+    url: "magnet:?xt=bla1",
+    date: new Date(currentTimestampMs - (3600 * 1000)) // 1 hour ago
 }
 
 var doc2 = {
     id: 2,
-    title: "Game of Thrones season 8 ep 5",
-    url: "magnet:?xt=blb",
-    date: new Date("2019-05-29 00:00:00")
-
+    title: "Game of Thrones season 8 episode 6",
+    url: "magnet:?xt=bla1",
+    date: new Date(currentTimestampMs - (3600 * 24 * 1000)) // 1 day ago
 }
 
 var doc3 = {
     id: 3,
-    title: "Game of Thrones season 8 episode 5",
-    url: "magnet:?xt=bla",
-    date: new Date("2019-05-30 00:00:00")
-
+    title: "Game of Thrones season 8 ep 5",
+    url: "magnet:?xt=bla2",
+    date: new Date(currentTimestampMs - (3600 * 24 * 7 * 1000)) // 1 week ago
 }
 
 var doc4 = {
-    id: 3,
-    title: "Game of Thrones season 99 episode 99",
-    url: "magnet:?xt=b99la",
-    date: new Date("2019-05-30 00:00:00")
+    id: 4,
+    title: "Game of Thrones season 7 episode 2",
+    url: "magnet:?xt=bla3",
+    date: new Date(currentTimestampMs - ((3600 * 24 * 7 * 52 * 1000) / 12)) // 1 month ago
 
 }
 
-index.add([doc1, doc2, doc3, doc4]);
+var doc5 = {
+    id: 5,
+    title: "Game of Thrones season 7 episode 6",
+    url: "magnet:?xt=bla4",
+    date: new Date(currentTimestampMs - ((3600 * 24 * 7 * 52 * 1000))) // 1 year ago
+
+}
+
+index.add([doc0, doc1, doc2, doc3, doc4, doc5]);
 
 const intialStateSubscriptions = {
     isPending: false,

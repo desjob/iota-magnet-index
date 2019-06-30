@@ -11,7 +11,7 @@ import {
 } from './constants.js';
 
 var initialDateUntil = new Date();
-// initialDateUntil.setHours(0, 0, 0, 0);
+initialDateUntil.setHours(23, 59, 59, 999);
 
 const initialStateSearchCriteria = {
     searchQuery: '',

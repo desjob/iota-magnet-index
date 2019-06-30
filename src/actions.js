@@ -31,19 +31,12 @@ export const performSearch = () => (dispatch, getState) => {
 
     if(searchCriteria.dateFrom !== null){
         search.where = (item) => {
-
-
-
             return item.date >= searchCriteria.dateFrom
                 && item.date <= searchCriteria.dateUntil
         };
     }
     else {
         search.where = (item) => {
-
-            console.log(item.date);
-            console.log(searchCriteria.dateUntil);
-
             return item.date <= searchCriteria.dateUntil
         };
     }
@@ -82,7 +75,7 @@ export const closeNavbar = () => ({
 export const setFromDate = (date) => {
 
     if (date != null) {
-        // date.setHours(0,0,0,0);
+        date.setHours(0,0,0,0);
     }
 
     return {
@@ -94,7 +87,7 @@ export const setFromDate = (date) => {
 export const setUntilDate = (date) => {
 
     if (date != null) {
-        // date.setHours(0,0,0,0);
+        date.setHours(23, 59, 59, 999);
     }
 
     return {
