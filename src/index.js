@@ -1,28 +1,41 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { HashRouter } from "react-router-dom";
-import App from './App';
-import * as serviceWorker from './serviceWorker';
 import {createStore, applyMiddleware, combineReducers} from 'redux';
 import {Provider} from 'react-redux';
 import {createLogger} from 'redux-logger';
 import thunkMiddleware from 'redux-thunk';
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+import { PersistGate } from 'redux-persist/lib/integration/react';
+
+import App from './App';
+import Loader from './components/loader';
 import {navigation} from "./containers/navigation/reducers";
 import {searchCriteria, searchResults} from "./containers/searchPage/reducers";
 import {publish} from './containers/publishPage/reducers';
 import {subscriptions} from './containers/subscriptionsPage/reducers';
+import * as serviceWorker from './serviceWorker';
 
 const rootReducer = combineReducers({searchCriteria, searchResults, subscriptions, navigation, publish});
 
+const persistConfig = {
+    key: 'root',
+    storage: storage,
+};
 
+const pReducer = persistReducer(persistConfig, rootReducer);
 const reduxLogger = createLogger();
-const store = createStore(rootReducer, applyMiddleware(thunkMiddleware, reduxLogger));
+const store = createStore(pReducer, applyMiddleware(thunkMiddleware, reduxLogger));
+const persistor = persistStore(store);
 
 ReactDOM.render(
     <Provider store={store}>
-        <HashRouter >
-            <App store={store} />
-        </HashRouter>
+        <PersistGate loading={<Loader />} persistor={persistor}>
+            <HashRouter >
+                <App store={store} />
+            </HashRouter>
+        </PersistGate>
     </Provider>,
     document.getElementById('root')
 );
