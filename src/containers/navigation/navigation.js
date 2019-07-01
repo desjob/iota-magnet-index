@@ -22,7 +22,6 @@ const mapDispatchToProps = (dispatch) => {
     }
 };
 
-
 const Navigation = (props) => {
     return (
         <Menu
