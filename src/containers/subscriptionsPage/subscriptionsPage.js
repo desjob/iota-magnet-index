@@ -19,7 +19,8 @@ const mapStateToProps = (state) => {
     return {
         isPending: state.subscriptions.isPending,
         error: state.subscriptions.error,
-        mamConfig: state.publish.mamConfig
+        address: state.subscriptions.address,
+        mamConfig: state.publish.mamConfig,
     }
 };
 
