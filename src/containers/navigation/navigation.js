@@ -22,7 +22,6 @@ const mapDispatchToProps = (dispatch) => {
     }
 };
 
-
 const Navigation = (props) => {
     return (
         <Menu
@@ -30,7 +29,9 @@ const Navigation = (props) => {
             handleDrawerClose={props.handleDrawerClose}
             open={props.navOpen}
             onRouteChange={props.onRouteChange}
-        />
+        >
+        {props.children}
+        </Menu>
     );
 }
 

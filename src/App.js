@@ -44,18 +44,18 @@ class App extends React.Component {
     render() {
         return (
             <div>
-               <Navigation/>
-
-                <main role='main' className='App'>
-                    <Switch>
-                        <Route exact path="/" component={this.renderSearchPage}/>
-                        <Route path="/search" component={this.renderSearchPage}/>
-                        <Route path="/subscriptions" component={this.renderSubscriptionsPage}/>
-                        <Route path="/publish" component={this.renderPublishPage}/>
-                        <Route path="/about" component={this.renderAboutPage}/>
-                        <Route path="/disclaimer" component={this.renderDisclaimerPage}/>
-                    </Switch>
-                </main>
+               <Navigation>
+                    <div className='App'>
+                        <Switch>
+                            <Route exact path="/" component={this.renderSearchPage}/>
+                            <Route path="/search" component={this.renderSearchPage}/>
+                            <Route path="/subscriptions" component={this.renderSubscriptionsPage}/>
+                            <Route path="/publish" component={this.renderPublishPage}/>
+                            <Route path="/about" component={this.renderAboutPage}/>
+                            <Route path="/disclaimer" component={this.renderDisclaimerPage}/>
+                        </Switch>
+                    </div>
+                </Navigation>
             </div>
         );
     }
