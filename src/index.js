@@ -1,49 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { HashRouter } from "react-router-dom";
-import {createStore, applyMiddleware, combineReducers} from 'redux';
+import {createStore, applyMiddleware} from 'redux';
 import {Provider} from 'react-redux';
 import {createLogger} from 'redux-logger';
 import thunkMiddleware from 'redux-thunk';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { PersistGate } from 'redux-persist/lib/integration/react';
-import { createTransform } from 'redux-persist';
-import FlexSearch from "flexsearch";
 
 import App from './App';
 import Loader from './components/loader';
-import {navigation} from "./containers/navigation/reducers";
-import {searchCriteria, searchResults} from "./containers/searchPage/reducers";
-import {publish} from './containers/publishPage/reducers';
-import {subscriptions, createSearchIndex} from './containers/subscriptionsPage/reducers';
 import * as serviceWorker from './serviceWorker';
-
-const rootReducer = combineReducers({searchCriteria, searchResults, subscriptions, navigation, publish});
-
-const searchIndexTransform = createTransform(
-
-    // when saving to localStorage, only save the document from the search index
-    (inboundState, key) => {
-
-        const documents = inboundState.index.where(() => true);
-
-        return { ...inboundState, index: documents };
-    },
-
-    // when loading from localStorage, turn the documents back into a usable search index
-    (outboundState, key) => {
-
-        var index = createSearchIndex();
-        index.add(outboundState.index);
-
-        return { ...outboundState, index: index, foo: 'bar' };
-    },
-
-    // define which reducers this transform gets called for.
-    { whitelist: ['subscriptions'] }
-);
-
+import {rootReducer} from './state/rootReducer';
+import {searchIndexTransform} from './state/transformers';
 
 const persistConfig = {
     key: 'root',
