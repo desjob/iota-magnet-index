@@ -51,7 +51,7 @@ export const performSearch = () => (dispatch, getState) => {
         .catch(error => {
             dispatch({type: SEARCH_FAIL, payload: error})
         });
-    }, 1500);
+    }, 500);
 }
 
 export const setFromDate = (date) => {

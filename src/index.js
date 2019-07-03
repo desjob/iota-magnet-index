@@ -16,43 +16,25 @@ import Loader from './components/loader';
 import {navigation} from "./containers/navigation/reducers";
 import {searchCriteria, searchResults} from "./containers/searchPage/reducers";
 import {publish} from './containers/publishPage/reducers';
-import {subscriptions} from './containers/subscriptionsPage/reducers';
+import {subscriptions, createSearchIndex} from './containers/subscriptionsPage/reducers';
 import * as serviceWorker from './serviceWorker';
 
 const rootReducer = combineReducers({searchCriteria, searchResults, subscriptions, navigation, publish});
 
 const searchIndexTransform = createTransform(
 
-    // transform state on its way to being serialized and persisted.
+    // when saving to localStorage, only save the document from the search index
     (inboundState, key) => {
 
-        //export documents only
         const documents = inboundState.index.where(() => true);
 
         return { ...inboundState, index: documents };
     },
 
-    // transform state being rehydrated
+    // when loading from localStorage, turn the documents back into a usable search index
     (outboundState, key) => {
 
-        //@todo: move this code to a central place, now its double @ initial state reducer
-        var index = new FlexSearch({
-            encode: "balance",
-            tokenize: "forward",
-            threshold: 0,
-            resolution: 3,
-            depth: 4,
-            async: true,
-            doc: {
-                id: "id",
-                field: [
-                    "title",
-                    "date"
-                ]
-            }
-        });
-
-        //import documents
+        var index = createSearchIndex();
         index.add(outboundState.index);
 
         return { ...outboundState, index: index, foo: 'bar' };

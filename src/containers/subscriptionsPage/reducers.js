@@ -7,21 +7,25 @@ import {
     UPDATE_INDEX_FAIL
 } from "./constants";
 
-var index = new FlexSearch({
-    encode: "balance",
-    tokenize: "forward",
-    threshold: 0,
-    resolution: 3,
-    depth: 4,
-    async: true,
-    doc: {
-        id: "id",
-        field: [
-            "title",
-            "date"
-        ]
-    }
-});
+export const createSearchIndex = () => {
+    return new FlexSearch({
+        encode: "balance",
+        tokenize: "forward",
+        threshold: 0,
+        resolution: 3,
+        depth: 4,
+        async: true,
+        doc: {
+            id: "id",
+            field: [
+                "title",
+                "date"
+            ]
+        }
+    });
+}
+
+var index = createSearchIndex();
 
 const currentTimestampMs = new Date().valueOf();
 
