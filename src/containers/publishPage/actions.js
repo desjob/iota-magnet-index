@@ -9,6 +9,10 @@ import {
 import * as Mam from "@iota/mam";
 import * as Converter from "@iota/converter";
 
+var Tracker = require('bittorrent-tracker');
+var magnet = require('magnet-uri');
+
+
 export const performPublish = () => (dispatch, getState) => {
 
     dispatch({type: PUBLISH_PENDING});
@@ -20,6 +24,22 @@ export const performPublish = () => (dispatch, getState) => {
         d: publish.description,
         t: (new Date()).valueOf()
     }
+
+
+    //@todo: consider if this is worth doing since most trackers are UDP and not supported
+    var parsedTorrent = magnet(publish.magnetLink);
+    console.log(parsedTorrent);
+    var opts = {
+        infoHash: parsedTorrent.infoHash,
+        announce: parsedTorrent.announce,
+        peerId: new Buffer('01234567890123456789'), // hex string or Buffer
+        port: 6881 // torrent client port
+    }
+    var client = new Tracker(opts)
+    client.scrape();
+    client.on('scrape', function (data) {
+        console.log(data)
+    });
 
     const message = Mam.create(publish.mamState, Converter.asciiToTrytes(JSON.stringify(mamMessageObject)));
 
