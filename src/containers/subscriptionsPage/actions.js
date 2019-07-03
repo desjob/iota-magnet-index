@@ -22,9 +22,7 @@ export const performUpdateIndex = () => (dispatch, getState) => {
         .then(result => {
             if(typeof result.messages === 'undefined') {
 
-
-                console.log('something wrong');
-                dispatch({type: PUBLISH_SUCCESS, payload: []});
+                dispatch({type: UPDATE_INDEX_FAIL, payload: 'something went wrong'});
                 return;
             }
 
@@ -32,14 +30,16 @@ export const performUpdateIndex = () => (dispatch, getState) => {
 
                 message = JSON.parse(Converter.trytesToAscii(message));
 
-                var doc = {
-                    id: message.m,
-                    title: message.d,
-                    url: message.m,
-                    date: new Date(message.t)
+                if (typeof message === 'object' && message !== null && message.m && message.d && message.t) {
+                    var doc = {
+                        id: message.m,
+                        title: message.d,
+                        url: message.m,
+                        date: message.t
+                    }
+                    docs.push(doc);
                 }
 
-                docs.push(doc);
             });
 
             dispatch({type: UPDATE_INDEX_SUCCESS, payload: docs});
