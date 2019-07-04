@@ -1,5 +1,4 @@
 import { createTransform } from 'redux-persist';
-
 import {createSearchIndex} from "../containers/subscriptionsPage/reducers";
 
 export const searchIndexTransform = createTransform(
