@@ -13,13 +13,12 @@ import App from './App';
 import Loader from './components/loader';
 import * as serviceWorker from './serviceWorker';
 import {rootReducer} from './state/rootReducer';
-import {searchIndexTransform} from './state/transformers';
+import {searchIndexTransform, searchCriteriaDatesTransform} from './state/transformers';
 
 const persistConfig = {
     key: 'root',
     storage: storage,
-    transforms: [searchIndexTransform],
-    whitelist: ['subscriptions', 'publish', 'navigation']
+    transforms: [searchIndexTransform, searchCriteriaDatesTransform],
 };
 
 const pReducer = persistReducer(persistConfig, rootReducer);
