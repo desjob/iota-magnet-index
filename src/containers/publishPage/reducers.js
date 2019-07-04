@@ -9,6 +9,9 @@ import {
     SET_PUBLISH_MAGNET_LINK
 } from "./constants";
 
+import {
+    USE_CUSTOM_NODE_CHANGED
+} from '../nodeConfig/constants';
 
 const curl = curlTransaction({ curlImpl });
 const localAttachToTangle = async function(trunkTransaction, branchTransaction, minWeightMagnitude, trytesArray) {
@@ -40,12 +43,19 @@ const intialStatePublish = {
     count: 0,
     error: '',
     description: '',
-    magnetLink: ''
-
+    magnetLink: '',
+    nodeList: [
+        "https://nodes.devnet.iota.org:443",
+        "https://nodes.devnet.thetangle.org:443"
+    ],
+    useCustomNode: false
 };
 
 export const publish = (state = intialStatePublish, action = {}) => {
     switch(action.type) {
+        case USE_CUSTOM_NODE_CHANGED:
+            return Object.assign({}, state, {useCustomNode: action.payload});
+
         case SET_PUBLISH_MAGNET_LINK:
             return Object.assign({}, state, {magnetLink: action.payload});
         case SET_PUBLISH_DESCRIPTION:
