@@ -31,7 +31,7 @@ export const performSearch = () => (dispatch, getState) => {
                 && item.date <= searchCriteria.dateUntil.valueOf()
         };
     }
-    else {
+    else if (searchCriteria.dateUntil !== null) {
         search.where = (item) => {
             return item.date <= searchCriteria.dateUntil.valueOf()
         };
