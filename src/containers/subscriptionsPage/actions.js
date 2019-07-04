@@ -7,7 +7,6 @@ import {
 
 import * as Mam from "@iota/mam";
 import * as Converter from "@iota/converter";
-import {PUBLISH_SUCCESS} from "../publishPage/constants";
 
 export const performUpdateIndex = () => (dispatch, getState) => {
 
