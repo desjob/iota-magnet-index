@@ -27,13 +27,13 @@ export const performSearch = () => (dispatch, getState) => {
 
     if(searchCriteria.dateFrom !== null){
         search.where = (item) => {
-            return item.date >= searchCriteria.dateFrom
-                && item.date <= searchCriteria.dateUntil
+            return item.date >= searchCriteria.dateFrom.valueOf()
+                && item.date <= searchCriteria.dateUntil.valueOf()
         };
     }
-    else {
+    else if (searchCriteria.dateUntil !== null) {
         search.where = (item) => {
-            return item.date <= searchCriteria.dateUntil
+            return item.date <= searchCriteria.dateUntil.valueOf()
         };
     }
 
@@ -51,7 +51,7 @@ export const performSearch = () => (dispatch, getState) => {
         .catch(error => {
             dispatch({type: SEARCH_FAIL, payload: error})
         });
-    }, 1500);
+    }, 500);
 }
 
 export const setFromDate = (date) => {

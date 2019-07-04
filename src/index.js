@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { HashRouter } from "react-router-dom";
-import {createStore, applyMiddleware, combineReducers} from 'redux';
+import {createStore, applyMiddleware} from 'redux';
 import {Provider} from 'react-redux';
 import {createLogger} from 'redux-logger';
 import thunkMiddleware from 'redux-thunk';
@@ -11,17 +11,14 @@ import { PersistGate } from 'redux-persist/lib/integration/react';
 
 import App from './App';
 import Loader from './components/loader';
-import {navigation} from "./containers/navigation/reducers";
-import {searchCriteria, searchResults} from "./containers/searchPage/reducers";
-import {publish} from './containers/publishPage/reducers';
-import {subscriptions} from './containers/subscriptionsPage/reducers';
 import * as serviceWorker from './serviceWorker';
-
-const rootReducer = combineReducers({searchCriteria, searchResults, subscriptions, navigation, publish});
+import {rootReducer} from './state/rootReducer';
+import {searchIndexTransform, searchCriteriaDatesTransform} from './state/transformers';
 
 const persistConfig = {
     key: 'root',
     storage: storage,
+    transforms: [searchIndexTransform, searchCriteriaDatesTransform],
 };
 
 const pReducer = persistReducer(persistConfig, rootReducer);

@@ -7,22 +7,25 @@ import {
     UPDATE_INDEX_FAIL
 } from "./constants";
 
-var index = new FlexSearch({
-    encode: "balance",
-    tokenize: "strict",
-    threshold: 0,
-    resolution: 3,
-    depth: 4,
-    async: true,
-    doc: {
-        id: "id",
-        field: [
-            "title",
-            "date"
-        ]
-    }
-});
+export const createSearchIndex = () => {
+    return new FlexSearch({
+        encode: "balance",
+        tokenize: "forward",
+        threshold: 0,
+        resolution: 3,
+        depth: 4,
+        async: true,
+        doc: {
+            id: "id",
+            field: [
+                "title",
+                "date"
+            ]
+        }
+    });
+}
 
+var index = createSearchIndex();
 
 const currentTimestampMs = new Date().valueOf();
 
@@ -30,35 +33,35 @@ var doc0 = {
     id: 0,
     title: "Game of Thrones season 8 complete",
     url: "magnet:?xt=bla1",
-    date: new Date(currentTimestampMs - (1 * 1000)) // 1 second ago
+    date: (currentTimestampMs - (1 * 1000)) // 1 second ago
 }
 
 var doc1 = {
     id: 1,
     title: "Game of Thrones season 8 recap",
     url: "magnet:?xt=bla1",
-    date: new Date(currentTimestampMs - (3600 * 1000)) // 1 hour ago
+    date: (currentTimestampMs - (3600 * 1000)) // 1 hour ago
 }
 
 var doc2 = {
     id: 2,
     title: "Game of Thrones season 8 episode 6",
     url: "magnet:?xt=bla1",
-    date: new Date(currentTimestampMs - (3600 * 24 * 1000)) // 1 day ago
+    date: (currentTimestampMs - (3600 * 24 * 1000)) // 1 day ago
 }
 
 var doc3 = {
     id: 3,
     title: "Game of Thrones season 8 ep 5",
     url: "magnet:?xt=bla2",
-    date: new Date(currentTimestampMs - (3600 * 24 * 7 * 1000)) // 1 week ago
+    date: (currentTimestampMs - (3600 * 24 * 7 * 1000)) // 1 week ago
 }
 
 var doc4 = {
     id: 4,
-    title: "Game of Thrones season 7 episode 2",
+    title: "Game of Thrones season 8 episode 2",
     url: "magnet:?xt=bla3",
-    date: new Date(currentTimestampMs - ((3600 * 24 * 7 * 52 * 1000) / 12)) // 1 month ago
+    date: (currentTimestampMs - ((3600 * 24 * 7 * 52 * 1000) / 12)) // 1 month ago
 
 }
 
@@ -66,7 +69,7 @@ var doc5 = {
     id: 5,
     title: "Game of Thrones season 7 episode 6",
     url: "magnet:?xt=bla4",
-    date: new Date(currentTimestampMs - ((3600 * 24 * 7 * 52 * 1000))) // 1 year ago
+    date: (currentTimestampMs - ((3600 * 24 * 7 * 52 * 1000))) // 1 year ago
 
 }
 

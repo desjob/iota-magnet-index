@@ -33,7 +33,7 @@ const ResultList = ({ results }) => {
 									{item.url}
 								</a>
 							</TableCell>
-              <TableCell>{item.date.toLocaleDateString()}</TableCell>
+              <TableCell>{new Date(item.date).toLocaleDateString()}</TableCell>
             </TableRow>
 		));
 
