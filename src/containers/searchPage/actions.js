@@ -7,10 +7,18 @@ import {
     SEARCH_FAIL,
 } from './constants.js';
 
-export const setSearchQuery = (text) => ({
-    type: SET_SEARCH_QUERY,
-    payload: text
-});
+export const setSearchQuery = (text) => (dispatch, getState) => {
+
+    dispatch({
+        type: SET_SEARCH_QUERY,
+        payload: text
+    });
+
+    // when the query has been cleared, trigger a new search to show all results
+    if (text === '') {
+        performSearch()(dispatch, getState);
+    }
+}
 
 export const performSearch = () => (dispatch, getState) => {
 
@@ -22,10 +30,19 @@ export const performSearch = () => (dispatch, getState) => {
         field: "title",
         query: searchCriteria.searchQuery,
         suggest: true,
-        limit: searchCriteria.limit
+        limit: searchCriteria.limit,
+        sort: "negativeDate" // created an issue to find a better way to do this: https://github.com/nextapps-de/flexsearch/issues/103
+    };
+
+    // show all results when the query is empty. use specially indexed "all" field for this.
+    // created an issue to find a better way to do this: https://github.com/nextapps-de/flexsearch/issues/102
+    if (searchCriteria.searchQuery === '') {
+        search.field = 'all';
+        search.query = '1';
     }
 
-    if(searchCriteria.dateFrom !== null){
+
+    if (searchCriteria.dateFrom !== null) {
         search.where = (item) => {
             return item.date >= searchCriteria.dateFrom.valueOf()
                 && item.date <= searchCriteria.dateUntil.valueOf()
@@ -39,25 +56,19 @@ export const performSearch = () => (dispatch, getState) => {
 
     setTimeout(() => {
         subscriptions.index.search(search)
-        .then((results) => {
-            var resultsByDate = results.sort( (a, b) => {
-                a = new Date(a.date);
-                b = new Date(b.date);
-                return a>b ? -1 : a<b ? 1 : 0;
+            .then((results) => {
+                dispatch({type: SEARCH_SUCCESS, payload: results})
+            })
+            .catch(error => {
+                dispatch({type: SEARCH_FAIL, payload: error})
             });
-
-            dispatch({type: SEARCH_SUCCESS, payload: resultsByDate})
-        })
-        .catch(error => {
-            dispatch({type: SEARCH_FAIL, payload: error})
-        });
     }, 500);
 }
 
 export const setFromDate = (date) => {
 
     if (date != null) {
-        date.setHours(0,0,0,0);
+        date.setHours(0, 0, 0, 0);
     }
 
     return {

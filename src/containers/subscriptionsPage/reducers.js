@@ -19,7 +19,8 @@ export const createSearchIndex = () => {
             id: "id",
             field: [
                 "title",
-                "date"
+                "date",
+                "all"
             ]
         }
     });
@@ -33,44 +34,54 @@ var doc0 = {
     id: 0,
     title: "Game of Thrones season 8 complete",
     url: "magnet:?xt=bla1",
-    date: (currentTimestampMs - (1 * 1000)) // 1 second ago
+    all: '1', // used for finding all results through search
+    date: (currentTimestampMs - (1 * 1000)), // 1 second ago
+    negativeDate: -((currentTimestampMs - (1 * 1000))), //used for sorting
 }
 
 var doc1 = {
     id: 1,
     title: "Game of Thrones season 8 recap",
     url: "magnet:?xt=bla1",
-    date: (currentTimestampMs - (3600 * 1000)) // 1 hour ago
+    all: '1',
+    date: (currentTimestampMs - (3600 * 1000)), // 1 hour ago
+    negativeDate: -((currentTimestampMs - (3600 * 1000))),
 }
 
 var doc2 = {
     id: 2,
     title: "Game of Thrones season 8 episode 6",
     url: "magnet:?xt=bla1",
-    date: (currentTimestampMs - (3600 * 24 * 1000)) // 1 day ago
+    all: '1',
+    date: (currentTimestampMs - (3600 * 24 * 1000)), // 1 day ago
+    negativeDate: -(currentTimestampMs - (3600 * 24 * 1000))
 }
 
 var doc3 = {
     id: 3,
     title: "Game of Thrones season 8 ep 5",
     url: "magnet:?xt=bla2",
-    date: (currentTimestampMs - (3600 * 24 * 7 * 1000)) // 1 week ago
+    all: '1',
+    date: (currentTimestampMs - (3600 * 24 * 7 * 1000)), // 1 week ago
+    negativeDate: -(currentTimestampMs - (3600 * 24 * 7 * 1000))
 }
 
 var doc4 = {
     id: 4,
     title: "Game of Thrones season 8 episode 2",
     url: "magnet:?xt=bla3",
-    date: (currentTimestampMs - ((3600 * 24 * 7 * 52 * 1000) / 12)) // 1 month ago
-
+    all: '1',
+    date: (currentTimestampMs - ((3600 * 24 * 7 * 52 * 1000) / 12)), // 1 month ago
+    negativeDate: -(currentTimestampMs - ((3600 * 24 * 7 * 52 * 1000) / 12))
 }
 
 var doc5 = {
     id: 5,
     title: "Game of Thrones season 7 episode 6",
     url: "magnet:?xt=bla4",
-    date: (currentTimestampMs - ((3600 * 24 * 7 * 52 * 1000))) // 1 year ago
-
+    all: '1',
+    date: (currentTimestampMs - ((3600 * 24 * 7 * 52 * 1000))), // 1 year ago
+    negativeDate: -(currentTimestampMs - (3600 * 24 * 7 * 52 * 1000))
 }
 
 index.add([doc0, doc1, doc2, doc3, doc4, doc5]);

@@ -32,36 +32,44 @@ const mapDispatchToProps = (dispatch) => {
     }
 };
 
-const SearchPage = (props) => {
-    const {searchQuery, onSearchChange, onSubmitSearch, dateFrom, dateUntil, results, onDateChangeFrom, onDateChangeUntil, isPending} = props;
+class SearchPage extends React.Component {
 
-    return (
-        <div>
-            <TorrentSearch
-                className='center'
-                searchQuery={searchQuery}
-                onSearchChange={onSearchChange}
-                onSubmitSearch={onSubmitSearch}
-                onDateChangeFrom={onDateChangeFrom}
-                dateValueFrom={dateFrom}
-                onDateChangeUntil={onDateChangeUntil}
-                dateValueUntil={dateUntil}
-            />
-            <Divider variant="middle" />
-            <br />
-            { 
-                isPending === true ?
-                <Loader></Loader>
-                :
-                results.length === 0 ?
-                <Message>No results yet.</Message>
-                :
-                <ResultList
-                results={results}
+    componentDidMount() {
+        this.props.onSubmitSearch();
+    }
+
+    render() {
+
+        const {searchQuery,onSearchChange,onSubmitSearch,dateFrom,dateUntil,results,onDateChangeFrom,onDateChangeUntil,isPending} = this.props;
+
+        return (
+            <div>
+                <TorrentSearch
+                    className='center'
+                    searchQuery={searchQuery}
+                    onSearchChange={onSearchChange}
+                    onSubmitSearch={onSubmitSearch}
+                    onDateChangeFrom={onDateChangeFrom}
+                    dateValueFrom={dateFrom}
+                    onDateChangeUntil={onDateChangeUntil}
+                    dateValueUntil={dateUntil}
                 />
-            }
-        </div>
-    );
+                <Divider variant="middle"/>
+                <br/>
+                {
+                    isPending === true ?
+                        <Loader></Loader>
+                        :
+                        results.length === 0 ?
+                            <Message>No results found.</Message>
+                            :
+                            <ResultList
+                                results={results}
+                            />
+                }
+            </div>
+        );
+    }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchPage);

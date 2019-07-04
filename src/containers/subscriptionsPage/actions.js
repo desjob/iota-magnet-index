@@ -34,7 +34,9 @@ export const performUpdateIndex = () => (dispatch, getState) => {
                         id: message.m,
                         title: message.d,
                         url: message.m,
-                        date: message.t
+                        date: message.t,
+                        negativeDate: -message.t,
+                        all: '1'
                     }
                     docs.push(doc);
                 }
