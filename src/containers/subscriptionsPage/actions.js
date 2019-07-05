@@ -5,6 +5,8 @@ import {
     UPDATE_INDEX_FAIL
 } from "./constants";
 
+import {localAttachToTangle} from '../../iota/localAttachToTangle';
+
 import * as Mam from "@iota/mam";
 import * as Converter from "@iota/converter";
 
@@ -12,8 +14,13 @@ export const performUpdateIndex = () => (dispatch, getState) => {
 
     dispatch({type: UPDATE_INDEX_PENDING});
 
-    const {subscriptions} = getState();
+    const {subscriptions, nodeConfig} = getState();
 
+    // set the current iota node URL as provider
+    Mam.init({
+        provider: nodeConfig.useCustomNode ? nodeConfig.customNode : nodeConfig.selectedNode,
+        attachToTangle: localAttachToTangle
+    });
 
     const docs = [];
 

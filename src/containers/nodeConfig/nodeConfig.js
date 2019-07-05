@@ -1,6 +1,5 @@
 import React from 'react';
 import {makeStyles} from '@material-ui/core/styles';
-import LensRounded from '@material-ui/icons/LensRounded';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import InputLabel from '@material-ui/core/InputLabel';
@@ -10,7 +9,7 @@ import Switch from '@material-ui/core/Switch';
 import {connect} from 'react-redux';
 
 import ContentBox from '../../components/contentBox';
-import {setUseCustomNode} from "./actions";
+import {setUseCustomNode, setCustomNode, selectNode} from "./actions";
 
 import TextField from "@material-ui/core/TextField";
 
@@ -19,36 +18,39 @@ const useStyles = makeStyles(() => ({
         color: 'green',
         height: 10,
     },
+    inputContainer: {
+        height: 60,
+    },
+    textField: {
+        width: 300,
+    },
+    select: {
+        width: 300,
+    }
 }));
 
 const mapStateToProps = (state) => {
-    console.log(state);
     return {
-        nodeList: state.publish.nodeList,
-        mamConfig: state.publish.mamConfig,
-        useCustomNode: state.publish.useCustomNode,
+        nodeList: state.nodeConfig.nodeList,
+        selectedNode: state.nodeConfig.selectedNode,
+        useCustomNode: state.nodeConfig.useCustomNode,
+        customNode: state.nodeConfig.customNode,
+        publishPending: state.publish.isPending,
+        subscriptionsPending: state.subscriptions.isPending,
     }
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
         onUseCustomNodeChange: (event) => dispatch(setUseCustomNode(event.target.checked)),
-        // onMagnetLinkChange: (event) => dispatch(setPublishMagnetLink(event.target.value)),
-        // onPublish: () => dispatch(performPublish()),
+        onCustomNodeChange: (event) => dispatch(setCustomNode(event.target.value)),
+        onSelectNode: (event) => dispatch(selectNode(event.target.value)),
     }
 };
 
-
-// this will be a stateful component in the future
-const NodeConfig = (props) => {
+const NodeConfig = ({nodeList, onUseCustomNodeChange, useCustomNode, selectedNode, customNode, publishPending, subscriptionsPending, onCustomNodeChange, onSelectNode}) => {
 
     const classes = useStyles();
-    const {mamConfig, nodeList, onUseCustomNodeChange, useCustomNode} = props;
-
-    const handleChange = (event) => {
-
-        console.log(event);
-    }
 
     return (
         <ContentBox title="Node configuration">
@@ -59,6 +61,7 @@ const NodeConfig = (props) => {
                         <FormControlLabel
                             control={
                                 <Switch
+                                    disabled={publishPending || subscriptionsPending}
                                     checked={useCustomNode}
                                     onChange={onUseCustomNodeChange}
                                     color="primary"
@@ -70,13 +73,15 @@ const NodeConfig = (props) => {
 
 
                     {!useCustomNode &&
-                    <div>
+                    <div className={classes.inputContainer}>
                         <br/>
                         <FormControl>
                             <InputLabel htmlFor="node-select">IOTA Node</InputLabel>
                             <Select
-                                value={mamConfig.provider}
-                                onChange={handleChange}
+                                disabled={publishPending || subscriptionsPending}
+                                className={classes.select}
+                                value={selectedNode}
+                                onChange={onSelectNode}
                                 inputProps={{
                                     name: 'age',
                                     id: 'node-select',
@@ -94,27 +99,22 @@ const NodeConfig = (props) => {
 
 
                     {useCustomNode &&
-                    <div>
+                    <div className={classes.inputContainer}>
                         <FormControl>
                             <TextField
+                                className={classes.textField}
                                 id="custom-node"
                                 label="IOTA Node"
-                                className={classes.textField}
                                 margin="normal"
-                                value={'sd'}
-                                onChange={handleChange}
-                                disabled={false}
+                                value={customNode}
+                                onChange={onCustomNodeChange}
+                                disabled={publishPending || subscriptionsPending}
+                                placeholder={"enter node url.."}
                             />
                         </FormControl>
                     </div>
                     }
-
                     <br/>
-                    <div>
-
-                            Status: <LensRounded className={classes.icon}/>
-
-                    </div>
                 </form>
             </div>
         </ContentBox>

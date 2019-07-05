@@ -8,6 +8,7 @@ import thunkMiddleware from 'redux-thunk';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import { PersistGate } from 'redux-persist/lib/integration/react';
+import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
 
 import App from './App';
 import Loader from './components/loader';
@@ -18,6 +19,7 @@ import {searchIndexTransform, searchCriteriaDatesTransform} from './state/transf
 const persistConfig = {
     key: 'root',
     storage: storage,
+    stateReconciler: autoMergeLevel2,
     transforms: [searchIndexTransform, searchCriteriaDatesTransform],
 };
 

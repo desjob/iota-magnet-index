@@ -1,25 +1,32 @@
-import {
-    PUBLISH_FAIL,
-    PUBLISH_PENDING,
-    PUBLISH_SUCCESS,
-    SET_PUBLISH_DESCRIPTION,
-    SET_PUBLISH_MAGNET_LINK
-} from "./constants";
-
 import * as Mam from "@iota/mam";
 import * as Converter from "@iota/converter";
+import {localAttachToTangle} from '../../iota/localAttachToTangle';
+import {
+PUBLISH_FAIL,
+PUBLISH_PENDING,
+PUBLISH_SUCCESS,
+SET_PUBLISH_DESCRIPTION,
+SET_PUBLISH_MAGNET_LINK
+} from "./constants";
+
 
 export const performPublish = () => (dispatch, getState) => {
 
     dispatch({type: PUBLISH_PENDING});
 
-    const {publish} = getState();
+    const {publish, nodeConfig} = getState();
 
     const mamMessageObject = {
         m: publish.magnetLink,
         d: publish.description,
         t: (new Date()).valueOf()
-    }
+    };
+
+    // set the current iota node URL as provider
+    Mam.init({
+        provider: nodeConfig.useCustomNode ? nodeConfig.customNode : nodeConfig.selectedNode,
+        attachToTangle: localAttachToTangle
+    });
 
     const message = Mam.create(publish.mamState, Converter.asciiToTrytes(JSON.stringify(mamMessageObject)));
 
