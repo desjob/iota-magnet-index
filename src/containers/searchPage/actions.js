@@ -42,7 +42,7 @@ export const performSearch = () => (dispatch, getState) => {
     }
 
 
-    if (searchCriteria.dateFrom !== null) {
+    if (searchCriteria.dateFrom !== null && searchCriteria.dateUntil !== null) {
         search.where = (item) => {
             return item.date >= searchCriteria.dateFrom.valueOf()
                 && item.date <= searchCriteria.dateUntil.valueOf()
@@ -51,6 +51,11 @@ export const performSearch = () => (dispatch, getState) => {
     else if (searchCriteria.dateUntil !== null) {
         search.where = (item) => {
             return item.date <= searchCriteria.dateUntil.valueOf()
+        };
+    }
+    else if (searchCriteria.dateFrom !== null) {
+        search.where = (item) => {
+            return item.date >= searchCriteria.dateFrom.valueOf()
         };
     }
 
