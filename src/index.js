@@ -19,6 +19,7 @@ const persistConfig = {
     key: 'root',
     storage: storage,
     transforms: [searchIndexTransform, searchCriteriaDatesTransform],
+    blacklist: ['searchCriteria', 'searchResults']
 };
 
 const pReducer = persistReducer(persistConfig, rootReducer);
