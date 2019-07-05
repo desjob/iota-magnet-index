@@ -31,7 +31,7 @@ const ResultList = ({ results }) => {
             	<TableCell component="th" scope="row">
                 	{item.title}
               	</TableCell>
-              	<TableCell>
+              	<TableCell align="center">
 					<IconButton 
 						href={item.url}
 						aria-label="Magnet link"
