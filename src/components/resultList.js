@@ -8,6 +8,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import IconButton from '@material-ui/core/IconButton';
 import SvgIcon from '@material-ui/core/SvgIcon';
+import TimeAgo from 'react-timeago';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -43,7 +44,7 @@ const ResultList = ({ results }) => {
 				  	</IconButton>
 				</TableCell>
             	<TableCell>
-					{new Date(item.date).toLocaleDateString()}
+					<TimeAgo date={new Date(item.date)} />
 				</TableCell>
             </TableRow>
 		));
