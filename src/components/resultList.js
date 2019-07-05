@@ -18,7 +18,7 @@ const useStyles = makeStyles(theme => ({
 	marginBottom: theme.spacing(2),
   },
   table: {
-    minWidth: 320,
+    minWidth: 300,
   },
 }));
 
@@ -56,7 +56,7 @@ const ResultList = ({ results }) => {
 						<TableRow>
 							<TableCell>Title</TableCell>
 							<TableCell align="center">Link</TableCell>
-							<TableCell>Date</TableCell>
+							<TableCell>Upload date</TableCell>
 						</TableRow>
 					</TableHead>
 					<TableBody>
