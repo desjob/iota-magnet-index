@@ -36,7 +36,7 @@ const ResultList = ({ results }) => {
 					<IconButton 
 						href={item.url}
 						aria-label="Magnet link"
-                        color="secondary"
+                        color="primary"
 					>
 						<SvgIcon>
 							<path d="M14,12a2,2,0,0,1-4,0V2H2V12a10,10,0,0,0,20,0V2H14ZM8,4V6H4V4ZM20,4V6H16V4Zm-4,8V8h4v4A8,8,0,0,1,4,12V8H8v4a4,4,0,0,0,8,0Z"/>
