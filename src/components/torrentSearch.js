@@ -1,72 +1,119 @@
 import React from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
-import DateRangePicker from "./dateRangePicker";
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import OutlinedInput from '@material-ui/core/OutlinedInput';
 import './torrentSearch.css';
 
-class TorrentSearch extends React.Component {
+const useStyles = makeStyles(() => ({
+    formControl: {
+        minWidth: 120,
+    }
+}));
 
-    onKeyPress = (event) => {
-        if(event.key === 'Enter'){
-            this.props.onSubmitSearch();
+const TorrentSearch = ({
+    searchQuery,
+    onSearchChange,
+    onSubmitSearch,
+    onDateChangeFrom,
+    onDateChangeUntil,
+    dateFilterValue,
+    setDateFilterValue
+}) => {
+    const classes = useStyles();
+
+    const onKeyPress = (event) => {
+        if (event.key === 'Enter') {
+            onSubmitSearch();
         }
     }
 
-    onClickSevenDays = () => {
+    const onDateFilterChange = (event) => {
+        setDateFilterValue(event.target.value);
+        var dateFrom = new Date();
         const dateUntil = new Date();
-        const dateMinusSix = new Date();
-        dateMinusSix.setDate(dateMinusSix.getDate()-6);
+        
+        switch (event.target.value){
+            case "hour" :
+                dateFrom.setMinutes(dateFrom.getMinutes() - 60);
+                break;
+            case "day" :
+                dateFrom.setMinutes(dateFrom.getMinutes() - 1440);
+                break;
+            case "week" :
+                dateFrom.setDate(dateFrom.getDate() - 6);
+                break;
+            case "month":
+                dateFrom.setMonth(dateFrom.getMonth() - 1);
+                break;
+            case "year":
+                dateFrom.setFullYear(dateFrom.getFullYear() - 1);
+                break;
+            case "custom":
+                //set dialog state to open
+                //set dateFrom and DateUntil when user clicks Save
+                return;
+            default:
+                dateFrom = null;
+                break;
+        }
 
-        this.props.onDateChangeFrom(dateMinusSix);
-        this.props.onDateChangeUntil(dateUntil);
+        //set dialog state to closed
+        onDateChangeFrom(dateFrom);
+        onDateChangeUntil(dateUntil);
     }
 
-    render() {
-
-        const {
-            searchQuery,
-            onSearchChange,
-            onSubmitSearch,
-            onDateChangeFrom,
-            dateValueFrom,
-            onDateChangeUntil,
-            dateValueUntil,
-        } = this.props;
-
-        return (
-            <div>
-                <div className="margins">
-                    <TextField
-                        value={searchQuery}
-                        type='search'
-                        id="search"
-                        label="Search torrents"
-                        onChange={onSearchChange}
-                        onKeyPress={this.onKeyPress}
-                        variant="outlined"
-                        className="wide"
-                    />
-                </div>
-                <div className="margins">
-                    <DateRangePicker
-                        onDateChangeFrom={onDateChangeFrom}
-                        dateValueFrom={dateValueFrom}
-                        onDateChangeUntil={onDateChangeUntil}
-                        dateValueUntil={dateValueUntil}
-                        onClickSevenDays={this.onClickSevenDays}
-                    />
-                </div>
-                <div className="margins">
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        onClick={onSubmitSearch}
-                    >Search
-                    </Button>
-                </div>
+    return (
+        <div>
+            <div className="margins">
+                <TextField
+                    value={searchQuery}
+                    type='search'
+                    id="search"
+                    label="Search torrents"
+                    placeholder="Search on title or leave empty to browse all results"
+                    onChange={onSearchChange}
+                    onKeyPress={onKeyPress}
+                    variant="outlined"
+                    className="wide"
+                />
             </div>
-        );
-    }
+            <div className="margins">
+                <FormControl variant="outlined" className={classes.formControl}>
+                    <InputLabel>Date filter</InputLabel>
+                    <Select
+                        value={dateFilterValue}
+                        onChange={onDateFilterChange}
+                        input={<OutlinedInput name="dateFilter" id="dateFilter" labelWidth={70} />}
+                        autoWidth
+                    >
+                        <MenuItem value="">
+                            <em>None</em>
+                        </MenuItem>
+                        <MenuItem value="hour">Last hour</MenuItem>
+                        <MenuItem value="day">Last 24 hours</MenuItem>
+                        <MenuItem value="week">Last 7 days</MenuItem>
+                        <MenuItem value="month">Last month</MenuItem>
+                        <MenuItem value="year">Last year</MenuItem>
+                        <MenuItem value="custom">Custom dates</MenuItem>
+                    </Select>
+                </FormControl>
+            </div>
+            <div>{/* Include dialog with daterangepicker  */}</div>
+            <div className="margins">
+                <Button
+                    variant="contained"
+                    color="secondary"
+                    onClick={onSubmitSearch}
+                >Search
+                    </Button>
+            </div>
+        </div>
+    );
 }
 
 export default TorrentSearch;

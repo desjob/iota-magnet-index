@@ -2,6 +2,7 @@ import {
     SET_SEARCH_QUERY,
     SET_SEARCH_DATE_FROM,
     SET_SEARCH_DATE_UNTIL,
+    SET_DATE_FILTER_VALUE,
     SEARCH_PENDING,
     SEARCH_SUCCESS,
     SEARCH_FAIL,
@@ -14,7 +15,8 @@ const initialStateSearchCriteria = {
     searchQuery: '',
     limit: 100,
     dateFrom: null,
-    dateUntil: initialDateUntil
+    dateUntil: initialDateUntil,
+    dateFilterValue: ""
 }
 
 export const searchCriteria = (state = initialStateSearchCriteria, action = {}) => {
@@ -25,6 +27,8 @@ export const searchCriteria = (state = initialStateSearchCriteria, action = {}) 
             return Object.assign({}, state, {dateFrom: action.payload});
         case SET_SEARCH_DATE_UNTIL:
             return Object.assign({}, state, {dateUntil: action.payload});
+        case SET_DATE_FILTER_VALUE:
+            return Object.assign({}, state, {dateFilterValue: action.payload});
         default:
             return state;
     }
