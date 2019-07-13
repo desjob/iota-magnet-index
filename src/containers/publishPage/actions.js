@@ -31,7 +31,7 @@ export const performPublish = () => (dispatch, getState) => {
             dispatch({type: PUBLISH_SUCCESS, payload: message})
         })
         .catch(err => {
-            dispatch({type: PUBLISH_FAIL, payload: err})
+            dispatch({type: PUBLISH_FAIL, payload: 'Unable to publish your magnet link. Please check your node configuration!'})
         });
 };
 

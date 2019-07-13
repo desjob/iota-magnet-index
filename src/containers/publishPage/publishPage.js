@@ -1,21 +1,39 @@
 import React from 'react';
-import {withStyles} from '@material-ui/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import {connect} from 'react-redux';
-// import Fab from '@material-ui/core/Fab';
-// import AddIcon from '@material-ui/icons/Add';
+import {makeStyles} from '@material-ui/core/styles';
+import ErrorIcon from '@material-ui/icons/Error';
+import Loader from '../../components/loader';
 
 import {setPublishDescription, setPublishMagnetLink, performPublish} from "./actions";
 import ContentBox from '../../components/contentBox';
 import NodeConfig from '../nodeConfig/nodeConfig';
 
-const styles = () => ({
+const useStyles = makeStyles(theme => ({
+    error: {
+        backgroundColor: theme.palette.error.dark,
+    },
+    icon: {
+        fontSize: 20,
+    },
+    iconVariant: {
+        opacity: 0.9,
+        marginRight: theme.spacing(1),
+    },
+    message: {
+        display: 'flex',
+        alignItems: 'center',
+        margin: 10,
+        marginLeft: 0,
+        fontWeight: 'bold'
+    },
     textField: {
         width: 300,
         marginRight: 10
     },
-});
+}));
+
 
 const mapStateToProps = (state) => {
     return {
@@ -37,66 +55,69 @@ const mapDispatchToProps = (dispatch) => {
     }
 };
 
-class PublishPage extends React.Component {
+const PublishPage = (props) => {
+
+    const classes = useStyles();
+    const {onDescriptionChange, onMagnetLinkChange, onPublish, isPending, originalRoot, count, mamConfig, description, magnetLink, error} = props;
 
 
-    render() {
-        const {classes, onDescriptionChange, onMagnetLinkChange, onPublish, isPending, originalRoot, count, mamConfig, description, magnetLink} = this.props;
+    return (
+        <div>
+            <NodeConfig mamConfig={mamConfig}/>
 
+            <ContentBox title="My channel">
 
-        return (
-            <div>
-                <NodeConfig mamConfig={mamConfig}/>
+                <p>
+                    Address: {originalRoot ? originalRoot : '-'} <br/>
+                    <strong>Magnet links published: </strong> {count}
+                </p>
 
-                <ContentBox title="My channel">
+                <form noValidate autoComplete="off">
+                    <TextField
+                        required
+                        id="standard-required"
+                        label="Description"
+                        className={classes.textField}
+                        margin="normal"
+                        value={description}
+                        onChange={onDescriptionChange}
+                        disabled={isPending}
+                    />
+                    <TextField
+                        required
+                        id="standard-required-test"
+                        label="Magnet link"
+                        className={classes.textField}
+                        margin="normal"
+                        value={magnetLink}
+                        onChange={onMagnetLinkChange}
+                        disabled={isPending}
+                    />
 
-                    <p>
-                        Address: {originalRoot ? originalRoot : '-'} <br/>
-                        <strong>Magnet links published: </strong> {count}
-                    </p>
+                    <br/>
 
-                    <form noValidate autoComplete="off">
-                        <TextField
-                            required
-                            id="standard-required"
-                            label="Description"
-                            className={classes.textField}
-                            margin="normal"
-                            value={description}
-                            onChange={onDescriptionChange}
-                            disabled={isPending}
-                        />
-                        <TextField
-                            required
-                            id="standard-required-test"
-                            label="Magnet link"
-                            className={classes.textField}
-                            margin="normal"
-                            value={magnetLink}
-                            onChange={onMagnetLinkChange}
-                            disabled={isPending}
-                        />
-                        {/*<Fab color="primary" size="small" aria-label="Add">*/}
-                        {/*    <AddIcon/>*/}
-                        {/*</Fab>*/}
+                    <Button
+                        variant="contained"
+                        color="secondary"
+                        className={classes.button}
+                        onClick={onPublish}
+                        disabled={isPending}
+                    >
+                        Publish
+                    </Button>
 
-                        <br/>
+                    {error &&
+                        <span className={classes.message}><ErrorIcon color="secondary"/>{error}</span>
+                    }
 
-                        <Button
-                            variant="contained"
-                            color="secondary"
-                            className={classes.button}
-                            onClick={onPublish}
-                            disabled={isPending}
-                        >
-                            Publish
-                        </Button>
-                    </form>
+                    {isPending &&
+                        <Loader/>
+                    }
+                </form>
 
-                </ContentBox>
-            </div>
-        );
-    }
+            </ContentBox>
+        </div>
+    );
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(PublishPage));
+export default connect(mapStateToProps, mapDispatchToProps)(PublishPage);
