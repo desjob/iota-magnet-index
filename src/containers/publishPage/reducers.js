@@ -1,3 +1,5 @@
+import * as Mam from "@iota/mam";
+
 import {
     PUBLISH_FAIL,
     PUBLISH_PENDING,
@@ -9,7 +11,7 @@ import {
 const initialStatePublish = {
     isPending: false,
     originalRoot: null,
-    mamState: null,
+    mamState:  Mam.init({}),
     count: 0,
     error: '',
     description: '',
