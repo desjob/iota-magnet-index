@@ -14,6 +14,7 @@ export const createSearchIndex = () => {
         threshold: 0,
         resolution: 3,
         depth: 4,
+        // profile: 'speed',
         async: true,
         doc: {
             id: "id",
@@ -85,6 +86,38 @@ var doc5 = {
 }
 
 index.add([doc0, doc1, doc2, doc3, doc4, doc5]);
+
+/*
+function makeid(length) {
+    var result           = '';
+    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXY   ...---Zabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    for ( var i = 0; i < length; i++ ) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+}
+
+var docs = [];
+
+for(var i=0; i < 100000; i++) {
+
+    var id = makeid(10);
+
+    docs.push({
+        id: i,
+        title: id,
+        url: id,
+        all: '1',
+        date: currentTimestampMs - (i * 1000),
+        negativeDate: -(currentTimestampMs - (i * 1000))
+    });
+}
+
+index.add(docs);
+*/
+
+
 
 const intialStateSubscriptions = {
     isPending: false,
