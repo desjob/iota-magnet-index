@@ -55,14 +55,12 @@ const TorrentSearch = ({
                 break;
             case "custom":
                 //set dialog state to open
-                //set dateFrom and DateUntil when user clicks Save
                 return;
             default:
                 dateFrom = null;
                 break;
         }
 
-        //set dialog state to closed
         onDateChangeFrom(dateFrom);
         onDateChangeUntil(dateUntil);
     }
@@ -103,7 +101,14 @@ const TorrentSearch = ({
                     </Select>
                 </FormControl>
             </div>
-            <div>{/* Include dialog with daterangepicker  */}</div>
+            <div>{/* 
+            Include new dialog component with daterangepicker
+            Default state is closed
+            Set dateFrom and DateUntil when user clicks Save
+                set the time dateFrom to 00:00
+                set the time dateUntil to 23:59
+            Set dialog state to closed when user clicks Save
+            */}</div>
             <div className="margins">
                 <Button
                     variant="contained"
