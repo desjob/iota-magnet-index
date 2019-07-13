@@ -10,16 +10,16 @@ import {
     setFromDate,
     setUntilDate,
     performSearch,
+    setDateFilterValue
 } from './actions';
 
 const mapStateToProps = (state) => {
     return {
         searchQuery: state.searchCriteria.searchQuery,
-        dateFrom: state.searchCriteria.dateFrom,
-        dateUntil: state.searchCriteria.dateUntil,
         limit: state.searchCriteria.limit,
         results: state.searchResults.results,
-        isPending: state.searchResults.isPending
+        isPending: state.searchResults.isPending,
+        dateFilterValue: state.searchCriteria.dateFilterValue
     }
 };
 
@@ -29,6 +29,7 @@ const mapDispatchToProps = (dispatch) => {
         onSubmitSearch: () => dispatch(performSearch()),
         onDateChangeFrom: (date) => dispatch(setFromDate(date)),
         onDateChangeUntil: (date) => dispatch(setUntilDate(date)),
+        setDateFilterValue: (value) => dispatch(setDateFilterValue(value)),
     }
 };
 
@@ -40,7 +41,7 @@ class SearchPage extends React.Component {
 
     render() {
 
-        const {searchQuery,onSearchChange,onSubmitSearch,dateFrom,dateUntil,results,onDateChangeFrom,onDateChangeUntil,isPending} = this.props;
+        const {searchQuery,onSearchChange,onSubmitSearch,results,onDateChangeFrom,onDateChangeUntil,isPending,dateFilterValue, setDateFilterValue} = this.props;
 
         return (
             <div>
@@ -50,9 +51,9 @@ class SearchPage extends React.Component {
                     onSearchChange={onSearchChange}
                     onSubmitSearch={onSubmitSearch}
                     onDateChangeFrom={onDateChangeFrom}
-                    dateValueFrom={dateFrom}
                     onDateChangeUntil={onDateChangeUntil}
-                    dateValueUntil={dateUntil}
+                    dateFilterValue={dateFilterValue}
+                    setDateFilterValue={setDateFilterValue}
                 />
                 <Divider variant="middle"/>
                 <br/>

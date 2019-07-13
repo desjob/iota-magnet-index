@@ -1,7 +1,6 @@
 import React, { Fragment } from "react";
 import { KeyboardDatePicker } from "@material-ui/pickers";
 import { makeStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
 import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 
@@ -20,7 +19,6 @@ const DateRangePicker = ({
   dateValueFrom, 
   onDateChangeUntil,
   dateValueUntil,
-  onClickSevenDays
 }) => {
   const classes = useStyles();
 
@@ -49,13 +47,6 @@ const DateRangePicker = ({
           format="dd/MM/yyyy"
           className={classes.date}
         />
-        <Button
-          variant="outlined" 
-          color="secondary"
-          className={classes.button}
-          onClick={onClickSevenDays}
-        >Last 7 days
-        </Button>
       </MuiPickersUtilsProvider>
     </Fragment>
   );

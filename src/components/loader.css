@@ -18,7 +18,7 @@
     
     border-radius: 100px;
     
-    background-color: #3f51b5;
+    background-color: #2196f3; /* primary */
     
     transform-style: perserve-3d;
     transform: rotateZ(0) translateY(0) scaleX(1);
@@ -33,91 +33,71 @@
   @keyframes dot {
     0% {
       transform: rotateZ(0) translateY(0) scaleX(1);
-      background-color: #3f51b5;
     }
     30% {
       transform: rotateZ(180deg) translateY(-20px) scaleX(1);
-      background-color: #1d2868;
     }
     50% {
       transform: rotateZ(360deg) translateY(-20px) scaleX(1.1);
-      background-color: #8892ca;
     }
     70% {
       transform: rotateZ(540deg) translateY(-20px) scaleX(1);
-      background-color: #1d2868;
     }
     100% {
       transform: rotateZ(720deg) translateY(0) scaleX(1);
-      background-color: #3f51b5;
     }
   }
   
   @keyframes dot2 {
     0% {
       transform: rotateZ(0deg) translateY(0) scaleX(1);
-      background-color: #3f51b5;
     }
     30% {
       transform: rotateZ(180deg) translateY(-20px) scaleX(1);
-      background-color: #1d2868;
     }
     50% {
       transform: rotateZ(270deg) translateY(-20px) scaleX(1.1);
-      background-color: #8892ca;
     }
     70% {
       transform: rotateZ(360deg) translateY(-20px) scaleX(1);
-      background-color: #1d2868;
     }
     100% {
       transform: rotateZ(540deg) translateY(0) scaleX(1);
-      background-color: #3f51b5;
     }
   }
   
   @keyframes dot3 {
     0% {
       transform: rotateZ(-180deg) translateY(0) scaleX(1);
-      background-color: #3f51b5;
     }
     30% {
       transform: rotateZ(0deg) translateY(-20px) scaleX(1);
-      background-color: #1d2868;
     }
     50% {
       transform: rotateZ(180deg) translateY(-20px) scaleX(1.1);
-      background-color: #8892ca;
     }
     70% {
       transform: rotateZ(360deg) translateY(-20px) scaleX(1);
-      background-color: #1d2868;
     }
     100% {
       transform: rotateZ(540deg) translateY(0) scaleX(1);
-      background-color: #3f51b5;
     }
   }
   
   @keyframes dot4 {
     0% {
       transform: rotateZ(-180deg) translateY(0) scaleX(1);
-      background-color: #3f51b5;
     }
     30% {
       transform: rotateZ(0deg) translateY(-20px) scaleX(1);
-      background-color: #1d2868;
     }
     50% {
       transform: rotateZ(90deg) translateY(-20px) scaleX(1.1);
-      background-color: #8892ca;
     }
     70% {
       transform: rotateZ(180deg) translateY(-20px) scaleX(1);
-      background-color: #1d2868;
     }
     100% {
       transform: rotateZ(360deg) translateY(0) scaleX(1);
-      background-color: #3f51b5;
     }
   }

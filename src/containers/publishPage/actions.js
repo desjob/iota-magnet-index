@@ -1,6 +1,7 @@
 import * as Mam from "@iota/mam";
 import * as Converter from "@iota/converter";
-import {localAttachToTangle} from '../../iota/localAttachToTangle';
+
+import {setMamProvider} from "../../iota/mamProvider";
 import {
 PUBLISH_FAIL,
 PUBLISH_PENDING,
@@ -8,7 +9,6 @@ PUBLISH_SUCCESS,
 SET_PUBLISH_DESCRIPTION,
 SET_PUBLISH_MAGNET_LINK
 } from "./constants";
-
 
 export const performPublish = () => (dispatch, getState) => {
 
@@ -22,11 +22,7 @@ export const performPublish = () => (dispatch, getState) => {
         t: (new Date()).valueOf()
     };
 
-    // set the current iota node URL as provider
-    Mam.init({
-        provider: nodeConfig.useCustomNode ? nodeConfig.customNode : nodeConfig.selectedNode,
-        attachToTangle: localAttachToTangle
-    });
+    setMamProvider(nodeConfig.useCustomNode ? nodeConfig.customNode : nodeConfig.selectedNode);
 
     const message = Mam.create(publish.mamState, Converter.asciiToTrytes(JSON.stringify(mamMessageObject)));
 

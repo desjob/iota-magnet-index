@@ -21,6 +21,7 @@ const persistConfig = {
     storage: storage,
     stateReconciler: autoMergeLevel2,
     transforms: [searchIndexTransform, searchCriteriaDatesTransform],
+    blacklist: ['searchCriteria', 'searchResults']
 };
 
 const pReducer = persistReducer(persistConfig, rootReducer);

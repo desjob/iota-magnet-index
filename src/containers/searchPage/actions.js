@@ -2,6 +2,7 @@ import {
     SET_SEARCH_QUERY,
     SET_SEARCH_DATE_FROM,
     SET_SEARCH_DATE_UNTIL,
+    SET_DATE_FILTER_VALUE,
     SEARCH_PENDING,
     SEARCH_SUCCESS,
     SEARCH_FAIL,
@@ -42,7 +43,7 @@ export const performSearch = () => (dispatch, getState) => {
     }
 
 
-    if (searchCriteria.dateFrom !== null) {
+    if (searchCriteria.dateFrom !== null && searchCriteria.dateUntil !== null) {
         search.where = (item) => {
             return item.date >= searchCriteria.dateFrom.valueOf()
                 && item.date <= searchCriteria.dateUntil.valueOf()
@@ -51,6 +52,11 @@ export const performSearch = () => (dispatch, getState) => {
     else if (searchCriteria.dateUntil !== null) {
         search.where = (item) => {
             return item.date <= searchCriteria.dateUntil.valueOf()
+        };
+    }
+    else if (searchCriteria.dateFrom !== null) {
+        search.where = (item) => {
+            return item.date >= searchCriteria.dateFrom.valueOf()
         };
     }
 
@@ -66,25 +72,22 @@ export const performSearch = () => (dispatch, getState) => {
 }
 
 export const setFromDate = (date) => {
-
-    if (date != null) {
-        date.setHours(0, 0, 0, 0);
-    }
-
     return {
         type: SET_SEARCH_DATE_FROM,
         payload: date
     }
-};
+}
 
 export const setUntilDate = (date) => {
-
-    if (date != null) {
-        date.setHours(23, 59, 59, 999);
-    }
-
     return {
         type: SET_SEARCH_DATE_UNTIL,
         payload: date
     }
-};
+}
+
+export const setDateFilterValue = (value) => {
+    return {
+        type: SET_DATE_FILTER_VALUE,
+        payload: value
+    }
+}
