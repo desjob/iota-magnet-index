@@ -59,7 +59,7 @@ class SubscriptionsPage extends React.Component {
 
                         <Button
                             variant="contained"
-                            color="primary"
+                            color="secondary"
                             className={classes.button}
                             onClick={onUpdateIndex}
                             disabled={isPending}

@@ -84,7 +84,7 @@ class PublishPage extends React.Component {
 
                         <Button
                             variant="contained"
-                            color="primary"
+                            color="secondary"
                             className={classes.button}
                             onClick={onPublish}
                             disabled={isPending}

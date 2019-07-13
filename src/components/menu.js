@@ -119,7 +119,7 @@ const Menu = ({
                         <MenuIcon/>
                     </IconButton>
                     <Typography variant="h6" component="h1" className={classes.title} noWrap>
-                        IOTA magnet index
+                        MAGNET INDEX
                     </Typography>
                     <IconButton
                         aria-label="Link to project files on github"
