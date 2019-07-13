@@ -64,7 +64,7 @@ const NodeConfig = ({nodeList, onUseCustomNodeChange, useCustomNode, selectedNod
                                     disabled={publishPending || subscriptionsPending}
                                     checked={useCustomNode}
                                     onChange={onUseCustomNodeChange}
-                                    color="primary"
+                                    color="secondary"
                                 />
                             }
                             label="Use custom node"
