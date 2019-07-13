@@ -45,7 +45,7 @@ const TorrentSearch = ({
                 dateFrom.setMinutes(dateFrom.getMinutes() - 1440);
                 break;
             case "week" :
-                dateFrom.setDate(dateFrom.getDate() - 6);
+                dateFrom.setDate(dateFrom.getDate() - 7);
                 break;
             case "month":
                 dateFrom.setMonth(dateFrom.getMonth() - 1);
