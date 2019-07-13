@@ -1,3 +1,7 @@
+import * as Mam from "@iota/mam";
+import * as Converter from "@iota/converter";
+
+import {setMamProvider} from "../../iota/mamProvider";
 import {
     SET_SUBSCRIPTION_ADDRESS,
     UPDATE_INDEX_PENDING,
@@ -5,15 +9,13 @@ import {
     UPDATE_INDEX_FAIL
 } from "./constants";
 
-import * as Mam from "@iota/mam";
-import * as Converter from "@iota/converter";
-
 export const performUpdateIndex = () => (dispatch, getState) => {
 
     dispatch({type: UPDATE_INDEX_PENDING});
 
-    const {subscriptions} = getState();
+    const {subscriptions, nodeConfig} = getState();
 
+    setMamProvider( nodeConfig.useCustomNode ? nodeConfig.customNode : nodeConfig.selectedNode);
 
     const docs = [];
 

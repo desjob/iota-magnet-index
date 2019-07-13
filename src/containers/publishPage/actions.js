@@ -1,25 +1,28 @@
-import {
-    PUBLISH_FAIL,
-    PUBLISH_PENDING,
-    PUBLISH_SUCCESS,
-    SET_PUBLISH_DESCRIPTION,
-    SET_PUBLISH_MAGNET_LINK
-} from "./constants";
-
 import * as Mam from "@iota/mam";
 import * as Converter from "@iota/converter";
+
+import {setMamProvider} from "../../iota/mamProvider";
+import {
+PUBLISH_FAIL,
+PUBLISH_PENDING,
+PUBLISH_SUCCESS,
+SET_PUBLISH_DESCRIPTION,
+SET_PUBLISH_MAGNET_LINK
+} from "./constants";
 
 export const performPublish = () => (dispatch, getState) => {
 
     dispatch({type: PUBLISH_PENDING});
 
-    const {publish} = getState();
+    const {publish, nodeConfig} = getState();
 
     const mamMessageObject = {
         m: publish.magnetLink,
         d: publish.description,
         t: (new Date()).valueOf()
-    }
+    };
+
+    setMamProvider(nodeConfig.useCustomNode ? nodeConfig.customNode : nodeConfig.selectedNode);
 
     const message = Mam.create(publish.mamState, Converter.asciiToTrytes(JSON.stringify(mamMessageObject)));
 

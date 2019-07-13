@@ -1,6 +1,5 @@
-import * as Mam from '@iota/mam';
-import curlTransaction from "curl-transaction-core";
-import curlImpl from "curl-transaction-webgl2-impl";
+import * as Mam from "@iota/mam";
+
 import {
     PUBLISH_FAIL,
     PUBLISH_PENDING,
@@ -9,42 +8,17 @@ import {
     SET_PUBLISH_MAGNET_LINK
 } from "./constants";
 
-
-const curl = curlTransaction({ curlImpl });
-const localAttachToTangle = async function(trunkTransaction, branchTransaction, minWeightMagnitude, trytesArray) {
-
-    return await curl.curl({
-        trunkTransaction,
-        branchTransaction,
-        minWeightMagnitude,
-        trytesArray
-    }).then((processedTrytes) => {
-        return processedTrytes
-    }).catch((error) => {
-        throw error;
-    });
-};
-
-const mamConfig = {
-    provider: "https://nodes.devnet.iota.org:443",
-    attachToTangle: localAttachToTangle
-};
-
-const mamState = Mam.init(mamConfig);
-
-const intialStatePublish = {
+const initialStatePublish = {
     isPending: false,
     originalRoot: null,
-    mamState: mamState,
-    mamConfig: mamConfig,
+    mamState:  Mam.init({}),
     count: 0,
     error: '',
     description: '',
-    magnetLink: ''
-
+    magnetLink: '',
 };
 
-export const publish = (state = intialStatePublish, action = {}) => {
+export const publish = (state = initialStatePublish, action = {}) => {
     switch(action.type) {
         case SET_PUBLISH_MAGNET_LINK:
             return Object.assign({}, state, {magnetLink: action.payload});
@@ -60,4 +34,4 @@ export const publish = (state = intialStatePublish, action = {}) => {
         default:
             return state;
     }
-}
+};
