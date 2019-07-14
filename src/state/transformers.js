@@ -8,13 +8,32 @@ export const searchIndexTransform = createTransform(
     // when saving to localStorage, only save the document from the search index
     (inboundState, key) => {
 
+        // console.log(inboundState.index);
 
-        const exportableIndex = JSON.parse(JSON.stringify(inboundState.index));
+        var t0 = performance.now();
 
-        console.log(exportableIndex);
+        const exportableIndex1 = JSON.parse(JSON.stringify(inboundState.index));
+
+        // const exportableIndex = Object.assign({}, inboundState.index);
+        //
+        // delete exportableIndex.w;
+        //
+        // exportableIndex.a.index.all = Object.assign({}, exportableIndex.a.index.all);
+        // exportableIndex.a.index.date = Object.assign({}, exportableIndex.a.index.date);
+        // exportableIndex.a.index.title = Object.assign({}, exportableIndex.a.index.title);
+        //
+        // delete exportableIndex.a.index.all.w;
+        // delete exportableIndex.a.index.date.w;
+        // delete exportableIndex.a.index.title.w;
+        //
+        // console.log(exportableIndex);
+
+        var t1 = performance.now();
+
+        console.log("exporting the index took " + (t1 - t0) + " milliseconds.");
 
 
-        return { ...inboundState, index: exportableIndex };
+        return { ...inboundState, index: exportableIndex1 };
     },
 
     // when loading from localStorage, turn the documents back into a usable search index
@@ -22,11 +41,30 @@ export const searchIndexTransform = createTransform(
 
         var index = outboundState.index;
 
+        var t0 = performance.now();
+
         //re-create index class instances
         Object.setPrototypeOf(index, v.prototype);
         Object.setPrototypeOf(index.a.index.all, v.prototype);
         Object.setPrototypeOf(index.a.index.date, v.prototype);
         Object.setPrototypeOf(index.a.index.title, v.prototype);
+
+        var t1 = performance.now();
+
+
+        console.log("importing the index took " + (t1 - t0) + " milliseconds.");
+
+        const search = {
+            field: "title",
+            query: 'fo',
+            suggest: true,
+            limit: 10,
+            sort: "negativeDate" // created an issue to find a better way to do this: https://github.com/nextapps-de/flexsearch/issues/103
+        };
+
+        index.search(search).then(console.log);
+
+
 
         return { ...outboundState, index: index};
     },

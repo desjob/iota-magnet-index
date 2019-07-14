@@ -14,7 +14,7 @@ const initialStatePublish = {
     mamState:  Mam.init({}),
     mamStateBackup: null,
     count: 0,
-    error: '',
+    error: null,
     description: '',
     magnetLink: '',
 };

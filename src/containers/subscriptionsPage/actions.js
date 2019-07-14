@@ -19,39 +19,82 @@ export const performUpdateIndex = () => (dispatch, getState) => {
 
     const docs = [];
 
-    Mam.fetch(subscriptions.address, 'public', null)
-        .then(result => {
-            if(typeof result.messages === 'undefined') {
+    const makeid = (length) => {
+        var result           = '';
+        var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXY   ...---Zabcdefghijklmnopqrstuvwxyz0123456789';
+        var charactersLength = characters.length;
+        for ( var i = 0; i < length; i++ ) {
+            result += characters.charAt(Math.floor(Math.random() * charactersLength));
+        }
+        return result;
+    };
 
-                dispatch({type: UPDATE_INDEX_FAIL, payload: 'something went wrong'});
-                return;
-            }
+    var t0 = performance.now();
 
-            result.messages.forEach(message => {
+    const currentTimestampMs = new Date().valueOf();
 
-                message = JSON.parse(Converter.trytesToAscii(message));
+    for(var i=0; i < 50000; i++) {
 
-                if (typeof message === 'object' && message !== null && message.m && message.d && message.t) {
-                    var doc = {
-                        id: message.m,
-                        title: message.d,
-                        url: message.m,
-                        date: message.t,
-                        negativeDate: -message.t,
-                        all: '1'
-                    }
-                    docs.push(doc);
-                }
+        var id = makeid(25);
 
-            });
-
-            dispatch({type: UPDATE_INDEX_SUCCESS, payload: docs});
-
-        })
-        .catch((err) => {
-            console.log(err);
-            dispatch({type: UPDATE_INDEX_FAIL, payload: []});
+        docs.push({
+            id: id,
+            title: id,
+            url: id,
+            all: '1',
+            date: currentTimestampMs - (i * 1000),
+            negativeDate: -(currentTimestampMs - (i * 1000))
         });
+    }
+
+    var t1 = performance.now();
+
+    console.log("generating fake docs took " + (t1 - t0) + " milliseconds.");
+
+    subscriptions.index.add(docs);
+
+    subscriptions.index.add(makeid(20), 'trigger mycallback pls', () => {
+
+        dispatch({type: UPDATE_INDEX_SUCCESS, payload: docs});
+    });
+
+
+
+
+
+    // Mam.fetch(subscriptions.address, 'public', null)
+    //     .then(result => {
+    //         if(typeof result.messages === 'undefined') {
+    //
+    //             dispatch({type: UPDATE_INDEX_FAIL, payload: 'something went wrong'});
+    //             return;
+    //         }
+    //
+    //         result.messages.forEach(message => {
+    //
+    //             message = JSON.parse(Converter.trytesToAscii(message));
+    //
+    //             if (typeof message === 'object' && message !== null && message.m && message.d && message.t) {
+    //                 var doc = {
+    //                     id: message.m,
+    //                     title: message.d,
+    //                     url: message.m,
+    //                     date: message.t,
+    //                     negativeDate: -message.t,
+    //                     all: '1'
+    //                 }
+    //                 docs.push(doc);
+    //             }
+    //
+    //         });
+    //
+    //         dispatch({type: UPDATE_INDEX_SUCCESS, payload: docs});
+    //
+    //     })
+    //     .catch((err) => {
+    //         console.log(err);
+    //         dispatch({type: UPDATE_INDEX_FAIL, payload: []});
+    //     });
 
 };
 

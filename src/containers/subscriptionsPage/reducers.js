@@ -16,6 +16,7 @@ export const createSearchIndex = () => {
         depth: 4,
         // profile: 'speed',
         async: true,
+        cache: false,
         doc: {
             id: "id",
             field: [
@@ -129,13 +130,13 @@ const intialStateSubscriptions = {
 export const subscriptions = (state = intialStateSubscriptions, action = {}) => {
     switch (action.type) {
         case SET_SUBSCRIPTION_ADDRESS:
-            return Object.assign({}, state, {address: action.payload});
+            return Object.assign({}, state, {address: action.payload, error: null});
         case UPDATE_INDEX_PENDING:
             return Object.assign({}, state, {isPending: true});
         case UPDATE_INDEX_SUCCESS:
-            let updatedIndex = Object.assign( Object.create( Object.getPrototypeOf(state.index)), state.index);
-            updatedIndex.add(action.payload);
-            return Object.assign({}, state, {index: updatedIndex, isPending: false});
+            // let updatedIndex = Object.assign( Object.create( Object.getPrototypeOf(state.index)), state.index);
+            // updatedIndex.add(action.payload);
+            return Object.assign({}, state, {/*index: updatedIndex,*/ isPending: false});
         case UPDATE_INDEX_FAIL:
             return Object.assign({}, state, {error: action.payload, isPending: false});
         default:
