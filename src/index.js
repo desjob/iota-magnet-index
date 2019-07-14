@@ -22,7 +22,7 @@ const persistConfig = {
     storage: createIdbStorage({name: 'magnetIndex', storeName: 'state'}),
     serialize: false,
     stateReconciler: autoMergeLevel2,
-    transforms: [searchIndexTransform, searchCriteriaDatesTransform],
+    transforms: [searchIndexTransform],
     blacklist: ['searchCriteria', 'searchResults']
 };
 
