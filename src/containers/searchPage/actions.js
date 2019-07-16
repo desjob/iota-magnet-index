@@ -75,26 +75,20 @@ export const performSearch = () => (dispatch, getState) => {
     }, 500);
 }
 
-export const setFromDate = (date) => {
-    return {
-        type: SET_SEARCH_DATE_FROM,
-        payload: date
-    }
-}
+export const setFromDate = (date) => ({
+    type: SET_SEARCH_DATE_FROM,
+    payload: date
+});
 
-export const setUntilDate = (date) => {
-    return {
-        type: SET_SEARCH_DATE_UNTIL,
-        payload: date
-    }
-}
+export const setUntilDate = (date) => ({
+    type: SET_SEARCH_DATE_UNTIL,
+    payload: date
+});
 
-export const setDateFilterValue = (value) => {
-    return {
-        type: SET_DATE_FILTER_VALUE,
-        payload: value
-    }
-}
+export const setDateFilterValue = (value) => ({
+    type: SET_DATE_FILTER_VALUE,
+    payload: value
+});
 
 export const openDialog = () => ({
     type: DIALOG_OPEN
@@ -106,9 +100,11 @@ export const closeDialog = () => ({
 
 export const setDialogDateFrom = (date) => {
     if (date != null) {
-        date.setHours(0,0,0,0);
+        date.setHours(0, 0, 0, 0);
     }
-    
+
+    console.log(date);
+
     return {
         type: SET_DIALOG_DATE_FROM,
         payload: date
@@ -119,6 +115,7 @@ export const setDialogDateUntil = (date) => {
     if (date != null) {
         date.setHours(23, 59, 59, 999);
     }
+    console.log(date);
 
     return {
         type: SET_DIALOG_DATE_UNTIL,

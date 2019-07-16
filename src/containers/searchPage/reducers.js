@@ -43,7 +43,7 @@ export const searchCriteria = (state = initialStateSearchCriteria, action = {}) 
         case SET_DIALOG_DATE_FROM:
             return Object.assign({}, state, {dialogDateFrom: action.payload});
         case SET_DIALOG_DATE_UNTIL:
-                return Object.assign({}, state, {dialogDateUntil: action.payload});
+            return Object.assign({}, state, {dialogDateUntil: action.payload});
         default:
             return state;
     }

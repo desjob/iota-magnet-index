@@ -52,7 +52,7 @@ class SearchPage extends React.Component {
 
     render() {
 
-        const { searchQuery, onSearchChange, onSubmitSearch, results, onDateChangeFrom, onDateChangeUntil, isPending, dateFilterValue, setDateFilterValue, isDialogOpen, openDialog, closeDialog, dialogDateFrom, dialogDateUntil } = this.props;
+        const { searchQuery, onSearchChange, onSubmitSearch, results, onDateChangeFrom, onDateChangeUntil, isPending, dateFilterValue, setDateFilterValue, isDialogOpen, openDialog, closeDialog, dialogDateFrom, dialogDateUntil, setDialogDateFrom, setDialogDateUntil } = this.props;
 
         return (
             <div>
