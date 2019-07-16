@@ -10,7 +10,6 @@ import { PersistGate } from 'redux-persist/lib/integration/react';
 import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
 import createIdbStorage from '@piotr-cz/redux-persist-idb-storage'
 
-
 import App from './App';
 import Loader from './components/loader';
 import * as serviceWorker from './serviceWorker';
