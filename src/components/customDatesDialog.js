@@ -18,7 +18,7 @@ const CustomDatesDialog = ({
     setDateFilterValue
 }) => {
 
-    const handleClose = () => {
+    const handleCancel = () => {
         setDialogDateFrom(null);
         setDialogDateUntil(null);
         setDateFilterValue("");
@@ -35,7 +35,7 @@ const CustomDatesDialog = ({
     return (
         <Dialog
             open={isDialogOpen}
-            onClose={handleClose}
+            onClose={handleCancel}
             aria-labelledby="form-dialog-title"
         >
             <DialogTitle id="form-dialog-title">Custom date filter</DialogTitle>
@@ -48,9 +48,9 @@ const CustomDatesDialog = ({
                 />
             </DialogContent>
             <DialogActions>
-                <Button 
-                    variant="outlined" 
-                    onClick={handleClose} 
+                <Button
+                    variant="outlined"
+                    onClick={handleCancel} 
                     color="primary"
                 >
                     Cancel
