@@ -103,8 +103,6 @@ export const setDialogDateFrom = (date) => {
         date.setHours(0, 0, 0, 0);
     }
 
-    console.log(date);
-
     return {
         type: SET_DIALOG_DATE_FROM,
         payload: date
@@ -115,7 +113,6 @@ export const setDialogDateUntil = (date) => {
     if (date != null) {
         date.setHours(23, 59, 59, 999);
     }
-    console.log(date);
 
     return {
         type: SET_DIALOG_DATE_UNTIL,
