@@ -6,9 +6,9 @@ import {Provider} from 'react-redux';
 import {createLogger} from 'redux-logger';
 import thunkMiddleware from 'redux-thunk';
 import { persistStore, persistReducer } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
 import { PersistGate } from 'redux-persist/lib/integration/react';
 import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
+import createIdbStorage from '@piotr-cz/redux-persist-idb-storage'
 
 import App from './App';
 import Loader from './components/loader';
@@ -18,9 +18,10 @@ import {searchIndexTransform, searchCriteriaDatesTransform} from './state/transf
 
 const persistConfig = {
     key: 'root',
-    storage: storage,
+    storage: createIdbStorage({name: 'magnetIndex', storeName: 'state'}),
+    serialize: false,
     stateReconciler: autoMergeLevel2,
-    transforms: [searchIndexTransform, searchCriteriaDatesTransform],
+    transforms: [searchIndexTransform],
     blacklist: ['searchCriteria', 'searchResults']
 };
 

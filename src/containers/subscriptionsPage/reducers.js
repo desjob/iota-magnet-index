@@ -15,11 +15,11 @@ export const createSearchIndex = () => {
         resolution: 3,
         depth: 4,
         async: true,
+        workers: 4,
         doc: {
             id: "id",
             field: [
                 "title",
-                "date",
                 "all"
             ]
         }
@@ -96,7 +96,7 @@ const intialStateSubscriptions = {
 export const subscriptions = (state = intialStateSubscriptions, action = {}) => {
     switch (action.type) {
         case SET_SUBSCRIPTION_ADDRESS:
-            return Object.assign({}, state, {address: action.payload});
+            return Object.assign({}, state, {address: action.payload, error: null});
         case UPDATE_INDEX_PENDING:
             return Object.assign({}, state, {isPending: true});
         case UPDATE_INDEX_SUCCESS:

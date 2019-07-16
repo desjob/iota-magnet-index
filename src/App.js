@@ -7,7 +7,7 @@ import SubscriptionsPage from './containers/subscriptionsPage/subscriptionsPage'
 import AboutPage from './containers/aboutPage';
 import DisclaimerPage from './containers/disclaimerPage';
 import Navigation from "./containers/navigation/navigation";
-import { ThemeProvider } from '@material-ui/styles';
+import { MuiThemeProvider } from '@material-ui/core/styles';
 import { createMuiTheme } from '@material-ui/core/styles';
 import blue from '@material-ui/core/colors/blue';
 import orange from '@material-ui/core/colors/orange';
@@ -54,7 +54,7 @@ class App extends React.Component {
     render() {
         return (
             <div>
-                <ThemeProvider theme={theme}>
+                <MuiThemeProvider theme={theme}>
                     <Navigation>
                         <div className='App'>
                             <Switch>
@@ -67,7 +67,7 @@ class App extends React.Component {
                             </Switch>
                         </div>
                     </Navigation>
-                </ThemeProvider>
+                </MuiThemeProvider>
             </div>
         );
     }

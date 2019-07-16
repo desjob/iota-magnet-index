@@ -52,7 +52,6 @@ export const performUpdateIndex = () => (dispatch, getState) => {
             console.log(err);
             dispatch({type: UPDATE_INDEX_FAIL, payload: []});
         });
-
 };
 
 export const setSubscriptionAddress= (address) => ({
