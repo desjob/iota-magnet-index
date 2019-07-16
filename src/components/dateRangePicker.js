@@ -1,13 +1,13 @@
 import React, { Fragment } from "react";
-import { KeyboardDatePicker } from "@material-ui/pickers";
+import { MuiPickersUtilsProvider, KeyboardDatePicker } from "@material-ui/pickers";
 import { makeStyles } from '@material-ui/core/styles';
-import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 
 const useStyles = makeStyles(theme => ({
   date: {
     marginLeft: theme.spacing(2),
     marginRight: theme.spacing(2),
+    marginTop: theme.spacing(1),
   },
   button: {
     marginTop: theme.spacing(1),
@@ -15,10 +15,10 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const DateRangePicker = ({ 
-  onDateChangeFrom, 
-  dateValueFrom, 
-  onDateChangeUntil,
-  dateValueUntil,
+  setDialogDateFrom, 
+  dialogDateFrom, 
+  setDialogDateUntil,
+  dialogDateUntil,
 }) => {
   const classes = useStyles();
 
@@ -26,25 +26,27 @@ const DateRangePicker = ({
     <Fragment>
       <MuiPickersUtilsProvider utils={DateFnsUtils}>
         <KeyboardDatePicker
+          variant="inline"
+          inputVariant="outlined"
           autoOk
-          clearable
           disableFuture
           label="Date from"
-          value={dateValueFrom}
-          onChange={onDateChangeFrom}
-          placeholder="dd/MM/yyyy"
+          value={dialogDateFrom}
+          onChange={date => setDialogDateFrom(date)}
           format="dd/MM/yyyy"
+          placeholder="dd/MM/yyyy"
           className={classes.date}
         />
         <KeyboardDatePicker
+          variant="inline"
+          inputVariant="outlined"
           autoOk
-          clearable
           disableFuture
           label="Date until"
-          value={dateValueUntil}
-          onChange={onDateChangeUntil}
-          placeholder="dd/MM/yyyy"
+          value={dialogDateUntil}
+          onChange={date => setDialogDateUntil(date)}
           format="dd/MM/yyyy"
+          placeholder="dd/MM/yyyy"
           className={classes.date}
         />
       </MuiPickersUtilsProvider>

@@ -3,6 +3,10 @@ import {
     SET_SEARCH_DATE_FROM,
     SET_SEARCH_DATE_UNTIL,
     SET_DATE_FILTER_VALUE,
+    DIALOG_OPEN,
+    DIALOG_CLOSE,
+    SET_DIALOG_DATE_FROM,
+    SET_DIALOG_DATE_UNTIL,
     SEARCH_PENDING,
     SEARCH_SUCCESS,
     SEARCH_FAIL,
@@ -16,7 +20,10 @@ const initialStateSearchCriteria = {
     limit: 100,
     dateFrom: null,
     dateUntil: initialDateUntil,
-    dateFilterValue: ""
+    dateFilterValue: "",
+    isDialogOpen: false,
+    dialogDateFrom: null,
+    dialogDateUntil: null,
 }
 
 export const searchCriteria = (state = initialStateSearchCriteria, action = {}) => {
@@ -29,6 +36,14 @@ export const searchCriteria = (state = initialStateSearchCriteria, action = {}) 
             return Object.assign({}, state, {dateUntil: action.payload});
         case SET_DATE_FILTER_VALUE:
             return Object.assign({}, state, {dateFilterValue: action.payload});
+        case DIALOG_OPEN:
+            return Object.assign({}, state, {isDialogOpen: true });
+        case DIALOG_CLOSE:
+            return Object.assign({}, state, {isDialogOpen: false});
+        case SET_DIALOG_DATE_FROM:
+            return Object.assign({}, state, {dialogDateFrom: action.payload});
+        case SET_DIALOG_DATE_UNTIL:
+            return Object.assign({}, state, {dialogDateUntil: action.payload});
         default:
             return state;
     }
