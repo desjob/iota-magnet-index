@@ -3,6 +3,10 @@ import {
     SET_SEARCH_DATE_FROM,
     SET_SEARCH_DATE_UNTIL,
     SET_DATE_FILTER_VALUE,
+    DIALOG_OPEN,
+    DIALOG_CLOSE,
+    SET_DIALOG_DATE_FROM,
+    SET_DIALOG_DATE_UNTIL,
     SEARCH_PENDING,
     SEARCH_SUCCESS,
     SEARCH_FAIL,
@@ -89,5 +93,35 @@ export const setDateFilterValue = (value) => {
     return {
         type: SET_DATE_FILTER_VALUE,
         payload: value
+    }
+}
+
+export const openDialog = () => ({
+    type: DIALOG_OPEN
+});
+
+export const closeDialog = () => ({
+    type: DIALOG_CLOSE
+});
+
+export const setDialogDateFrom = (date) => {
+    if (date != null) {
+        date.setHours(0,0,0,0);
+    }
+    
+    return {
+        type: SET_DIALOG_DATE_FROM,
+        payload: date
+    }
+}
+
+export const setDialogDateUntil = (date) => {
+    if (date != null) {
+        date.setHours(23, 59, 59, 999);
+    }
+
+    return {
+        type: SET_DIALOG_DATE_UNTIL,
+        payload: date
     }
 }

@@ -15,10 +15,10 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const DateRangePicker = ({ 
-  onDateChangeFrom, 
-  dateValueFrom, 
-  onDateChangeUntil,
-  dateValueUntil,
+  setDialogDateFrom, 
+  dialogDateFrom, 
+  setDialogDateUntil,
+  dialogDateUntil,
 }) => {
   const classes = useStyles();
 
@@ -30,8 +30,8 @@ const DateRangePicker = ({
           clearable
           disableFuture
           label="Date from"
-          value={dateValueFrom}
-          onChange={onDateChangeFrom}
+          value={dialogDateFrom}
+          onChange={setDialogDateFrom}
           placeholder="dd/MM/yyyy"
           format="dd/MM/yyyy"
           className={classes.date}
@@ -41,8 +41,8 @@ const DateRangePicker = ({
           clearable
           disableFuture
           label="Date until"
-          value={dateValueUntil}
-          onChange={onDateChangeUntil}
+          value={dialogDateUntil}
+          onChange={setDialogDateUntil}
           placeholder="dd/MM/yyyy"
           format="dd/MM/yyyy"
           className={classes.date}

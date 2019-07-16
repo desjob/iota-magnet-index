@@ -8,6 +8,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import './torrentSearch.css';
+import CustomDatesDialog from './customDatesDialog';
 
 const useStyles = makeStyles(() => ({
     formControl: {
@@ -22,7 +23,14 @@ const TorrentSearch = ({
     onDateChangeFrom,
     onDateChangeUntil,
     dateFilterValue,
-    setDateFilterValue
+    setDateFilterValue,
+    isDialogOpen,
+    openDialog,
+    closeDialog,
+    setDialogDateFrom,
+    setDialogDateUntil,
+    dialogDateFrom,
+    dialogDateUntil,
 }) => {
     const classes = useStyles();
 
@@ -33,7 +41,6 @@ const TorrentSearch = ({
     }
 
     const onDateFilterChange = (event) => {
-        setDateFilterValue(event.target.value);
         var dateFrom = new Date();
         const dateUntil = new Date();
         
@@ -54,13 +61,14 @@ const TorrentSearch = ({
                 dateFrom.setFullYear(dateFrom.getFullYear() - 1);
                 break;
             case "custom":
-                //set dialog state to open
+                openDialog();
                 return;
             default:
                 dateFrom = null;
                 break;
         }
 
+        setDateFilterValue(event.target.value);
         onDateChangeFrom(dateFrom);
         onDateChangeUntil(dateUntil);
     }
@@ -101,14 +109,17 @@ const TorrentSearch = ({
                     </Select>
                 </FormControl>
             </div>
-            <div>{/* 
-            Include new dialog component with daterangepicker
-            Default state is closed
-            Set dateFrom and DateUntil when user clicks Save
-                set the time dateFrom to 00:00
-                set the time dateUntil to 23:59
-            Set dialog state to closed when user clicks Save
-            */}</div>
+            <CustomDatesDialog 
+                onDateChangeFrom={onDateChangeFrom}
+                onDateChangeUntil={onDateChangeUntil}
+                isDialogOpen={isDialogOpen}
+                closeDialog={closeDialog}
+                setDialogDateFrom={setDialogDateFrom}
+                setDialogDateUntil={setDialogDateUntil}
+                dialogDateFrom={dialogDateFrom}
+                dialogDateUntil={dialogDateUntil}
+                setDateFilterValue={setDateFilterValue}
+            />
             <div className="margins">
                 <Button
                     variant="contained"

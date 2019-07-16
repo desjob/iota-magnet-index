@@ -10,7 +10,11 @@ import {
     setFromDate,
     setUntilDate,
     performSearch,
-    setDateFilterValue
+    setDateFilterValue,
+    openDialog,
+    closeDialog,
+    setDialogDateFrom,
+    setDialogDateUntil,
 } from './actions';
 
 const mapStateToProps = (state) => {
@@ -19,7 +23,10 @@ const mapStateToProps = (state) => {
         limit: state.searchCriteria.limit,
         results: state.searchResults.results,
         isPending: state.searchResults.isPending,
-        dateFilterValue: state.searchCriteria.dateFilterValue
+        dateFilterValue: state.searchCriteria.dateFilterValue,
+        isDialogOpen: state.searchCriteria.isDialogOpen,
+        dialogDateFrom: state.searchCriteria.dialogDateFrom,
+        dialogDateUntil: state.searchCriteria.dialogDateUntil,
     }
 };
 
@@ -30,6 +37,10 @@ const mapDispatchToProps = (dispatch) => {
         onDateChangeFrom: (date) => dispatch(setFromDate(date)),
         onDateChangeUntil: (date) => dispatch(setUntilDate(date)),
         setDateFilterValue: (value) => dispatch(setDateFilterValue(value)),
+        openDialog: () => dispatch(openDialog()),
+        closeDialog:() => dispatch(closeDialog()),
+        setDialogDateFrom: (date) => dispatch(setDialogDateFrom(date)),
+        setDialogDateUntil: (date) => dispatch(setDialogDateUntil(date)),
     }
 };
 
@@ -41,7 +52,7 @@ class SearchPage extends React.Component {
 
     render() {
 
-        const {searchQuery,onSearchChange,onSubmitSearch,results,onDateChangeFrom,onDateChangeUntil,isPending,dateFilterValue, setDateFilterValue} = this.props;
+        const { searchQuery, onSearchChange, onSubmitSearch, results, onDateChangeFrom, onDateChangeUntil, isPending, dateFilterValue, setDateFilterValue, isDialogOpen, openDialog, closeDialog, dialogDateFrom, dialogDateUntil } = this.props;
 
         return (
             <div>
@@ -54,6 +65,13 @@ class SearchPage extends React.Component {
                     onDateChangeUntil={onDateChangeUntil}
                     dateFilterValue={dateFilterValue}
                     setDateFilterValue={setDateFilterValue}
+                    isDialogOpen={isDialogOpen}
+                    openDialog={openDialog}
+                    closeDialog={closeDialog}
+                    setDialogDateFrom={setDialogDateFrom}
+                    setDialogDateUntil={setDialogDateUntil}
+                    dialogDateFrom={dialogDateFrom}
+                    dialogDateUntil={dialogDateUntil}
                 />
                 <Divider variant="middle"/>
                 <br/>
