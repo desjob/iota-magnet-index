@@ -6,14 +6,20 @@ import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import Box from '@material-ui/core/Box';
+import TextField from '@material-ui/core/TextField';
 
 import './torrentSearch.css';
 import CustomDatesDialog from './customDatesDialog';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles(theme => ({
     formControl: {
         minWidth: 120,
-    }
+        marginRight: theme.spacing(1),
+    },
+    textField: {
+        maxWidth: 80,
+        marginRight: theme.spacing(1),
+    },
 }));
 
 const FilterBar = ({
@@ -27,7 +33,9 @@ const FilterBar = ({
     setDialogDateFrom,
     setDialogDateUntil,
     dialogDateFrom,
-    dialogDateUntil,s
+    dialogDateUntil,
+    setSearchLimit,
+    limit,
 }) => {
     const classes = useStyles();
 
@@ -71,7 +79,17 @@ const FilterBar = ({
             m={2} 
             bgcolor="grey.200" 
             borderRadius="borderRadius"
+            className="left"
         >
+            <TextField
+                id="outlined-number"
+                label="Limit"
+                value={limit}
+                onChange={setSearchLimit}
+                type="number"
+                className={classes.textField}
+                variant="outlined"
+            />
             <FormControl variant="outlined" className={classes.formControl}>
                 <InputLabel>Date filter</InputLabel>
                 <Select

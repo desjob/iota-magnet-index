@@ -18,6 +18,8 @@ const TorrentSearch = ({
     setDialogDateUntil,
     dialogDateFrom,
     dialogDateUntil,
+    setSearchLimit,
+    limit
 }) => {
 
     const onKeyPress = (event) => {
@@ -53,6 +55,8 @@ const TorrentSearch = ({
                 setDialogDateUntil={setDialogDateUntil}
                 dialogDateFrom={dialogDateFrom}
                 dialogDateUntil={dialogDateUntil}
+                setSearchLimit={setSearchLimit}
+                limit={limit}
             />
             <div className="margins">
                 <Button

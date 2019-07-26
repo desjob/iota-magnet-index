@@ -15,6 +15,7 @@ import {
     closeDialog,
     setDialogDateFrom,
     setDialogDateUntil,
+    setSearchLimit,
 } from './actions';
 
 const mapStateToProps = (state) => {
@@ -41,6 +42,7 @@ const mapDispatchToProps = (dispatch) => {
         closeDialog:() => dispatch(closeDialog()),
         setDialogDateFrom: (date) => dispatch(setDialogDateFrom(date)),
         setDialogDateUntil: (date) => dispatch(setDialogDateUntil(date)),
+        setSearchLimit: (event) => dispatch(setSearchLimit(event.target.value)),
     }
 };
 
@@ -52,7 +54,7 @@ class SearchPage extends React.Component {
 
     render() {
 
-        const { searchQuery, onSearchChange, onSubmitSearch, results, onDateChangeFrom, onDateChangeUntil, isPending, dateFilterValue, setDateFilterValue, isDialogOpen, openDialog, closeDialog, dialogDateFrom, dialogDateUntil, setDialogDateFrom, setDialogDateUntil } = this.props;
+        const { searchQuery, onSearchChange, onSubmitSearch, results, onDateChangeFrom, onDateChangeUntil, isPending, dateFilterValue, setDateFilterValue, isDialogOpen, openDialog, closeDialog, dialogDateFrom, dialogDateUntil, setDialogDateFrom, setDialogDateUntil, setSearchLimit, limit } = this.props;
 
         return (
             <div>
@@ -72,6 +74,8 @@ class SearchPage extends React.Component {
                     setDialogDateUntil={setDialogDateUntil}
                     dialogDateFrom={dialogDateFrom}
                     dialogDateUntil={dialogDateUntil}
+                    setSearchLimit={setSearchLimit}
+                    limit={limit}
                 />
                 <Divider variant="middle"/>
                 <br/>

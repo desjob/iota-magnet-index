@@ -7,6 +7,7 @@ import {
     DIALOG_CLOSE,
     SET_DIALOG_DATE_FROM,
     SET_DIALOG_DATE_UNTIL,
+    SET_SEARCH_LIMIT,
     SEARCH_PENDING,
     SEARCH_SUCCESS,
     SEARCH_FAIL,
@@ -117,5 +118,17 @@ export const setDialogDateUntil = (date) => {
     return {
         type: SET_DIALOG_DATE_UNTIL,
         payload: date
+    }
+}
+
+export const setSearchLimit = (value) => {
+    console.log(value);
+    if (value == null) {
+        return;
+    }
+
+    return {
+        type: SET_SEARCH_LIMIT,
+        payload: value
     }
 }
