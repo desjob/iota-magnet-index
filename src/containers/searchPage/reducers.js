@@ -7,6 +7,7 @@ import {
     DIALOG_CLOSE,
     SET_DIALOG_DATE_FROM,
     SET_DIALOG_DATE_UNTIL,
+    SET_SEARCH_LIMIT,
     SEARCH_PENDING,
     SEARCH_SUCCESS,
     SEARCH_FAIL,
@@ -37,13 +38,15 @@ export const searchCriteria = (state = initialStateSearchCriteria, action = {}) 
         case SET_DATE_FILTER_VALUE:
             return Object.assign({}, state, {dateFilterValue: action.payload});
         case DIALOG_OPEN:
-            return Object.assign({}, state, {isDialogOpen: true });
+            return Object.assign({}, state, {isDialogOpen: true});
         case DIALOG_CLOSE:
             return Object.assign({}, state, {isDialogOpen: false});
         case SET_DIALOG_DATE_FROM:
             return Object.assign({}, state, {dialogDateFrom: action.payload});
         case SET_DIALOG_DATE_UNTIL:
             return Object.assign({}, state, {dialogDateUntil: action.payload});
+        case SET_SEARCH_LIMIT:
+            return Object.assign({}, state, {limit: action.payload});
         default:
             return state;
     }

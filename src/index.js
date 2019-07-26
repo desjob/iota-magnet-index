@@ -14,7 +14,7 @@ import App from './App';
 import Loader from './components/loader';
 import * as serviceWorker from './serviceWorker';
 import {rootReducer} from './state/rootReducer';
-import {searchIndexTransform, searchCriteriaDatesTransform} from './state/transformers';
+import {searchIndexTransform} from './state/transformers';
 
 const persistConfig = {
     key: 'root',
