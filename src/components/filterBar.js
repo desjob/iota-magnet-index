@@ -82,7 +82,7 @@ const FilterBar = ({
             className="left"
         >
             <TextField
-                id="outlined-number"
+                id="limit"
                 label="Limit"
                 value={limit}
                 onChange={setSearchLimit}

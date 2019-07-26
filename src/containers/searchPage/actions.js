@@ -121,14 +121,7 @@ export const setDialogDateUntil = (date) => {
     }
 }
 
-export const setSearchLimit = (value) => {
-    console.log(value);
-    if (value == null) {
-        return;
-    }
-
-    return {
-        type: SET_SEARCH_LIMIT,
-        payload: value
-    }
-}
+export const setSearchLimit = (value) => ({
+    type: SET_SEARCH_LIMIT,
+    payload: value
+});
