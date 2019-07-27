@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import {makeStyles} from '@material-ui/core/styles';
+import {connect} from 'react-redux';
+
 import TorrentSearch from '../../components/torrentSearch';
 import ResultList from '../../components/resultList';
 import Divider from '@material-ui/core/Divider';
 import Message from '../../components/message';
 import Loader from '../../components/loader';
-import {connect} from 'react-redux';
 import {
     setSearchQuery,
     setFromDate,
@@ -17,6 +19,13 @@ import {
     setDialogDateUntil,
     setSearchLimit,
 } from './actions';
+
+const useStyles = makeStyles(theme => ({
+    divider: {
+        margin: theme.spacing(1),
+        padding: theme.spacing(1),
+    },
+}));
 
 const mapStateToProps = (state) => {
     return {
@@ -46,53 +55,54 @@ const mapDispatchToProps = (dispatch) => {
     }
 };
 
-class SearchPage extends React.Component {
+const SearchPage = (props) => {
+    
+    const { searchQuery, onSearchChange, onSubmitSearch, results, onDateChangeFrom, onDateChangeUntil, isPending, dateFilterValue, setDateFilterValue, isDialogOpen, openDialog, closeDialog, dialogDateFrom, dialogDateUntil, setDialogDateFrom, setDialogDateUntil, setSearchLimit, limit } = props;
 
-    componentDidMount() {
-        this.props.onSubmitSearch();
-    }
+    useEffect(() => {
+        onSubmitSearch();
+    }, [onSubmitSearch]);
+    
+    const classes = useStyles();
 
-    render() {
-
-        const { searchQuery, onSearchChange, onSubmitSearch, results, onDateChangeFrom, onDateChangeUntil, isPending, dateFilterValue, setDateFilterValue, isDialogOpen, openDialog, closeDialog, dialogDateFrom, dialogDateUntil, setDialogDateFrom, setDialogDateUntil, setSearchLimit, limit } = this.props;
-
-        return (
-            <div>
-                <TorrentSearch
-                    className='center'
-                    searchQuery={searchQuery}
-                    onSearchChange={onSearchChange}
-                    onSubmitSearch={onSubmitSearch}
-                    onDateChangeFrom={onDateChangeFrom}
-                    onDateChangeUntil={onDateChangeUntil}
-                    dateFilterValue={dateFilterValue}
-                    setDateFilterValue={setDateFilterValue}
-                    isDialogOpen={isDialogOpen}
-                    openDialog={openDialog}
-                    closeDialog={closeDialog}
-                    setDialogDateFrom={setDialogDateFrom}
-                    setDialogDateUntil={setDialogDateUntil}
-                    dialogDateFrom={dialogDateFrom}
-                    dialogDateUntil={dialogDateUntil}
-                    setSearchLimit={setSearchLimit}
-                    limit={limit}
-                />
+    return (
+        <div>
+            <TorrentSearch
+                className='center'
+                searchQuery={searchQuery}
+                onSearchChange={onSearchChange}
+                onSubmitSearch={onSubmitSearch}
+                onDateChangeFrom={onDateChangeFrom}
+                onDateChangeUntil={onDateChangeUntil}
+                dateFilterValue={dateFilterValue}
+                setDateFilterValue={setDateFilterValue}
+                isDialogOpen={isDialogOpen}
+                openDialog={openDialog}
+                closeDialog={closeDialog}
+                setDialogDateFrom={setDialogDateFrom}
+                setDialogDateUntil={setDialogDateUntil}
+                dialogDateFrom={dialogDateFrom}
+                dialogDateUntil={dialogDateUntil}
+                setSearchLimit={setSearchLimit}
+                limit={limit}
+            />
+            <div className={classes.divider}>
                 <Divider variant="middle"/>
-                <br/>
-                {
-                    isPending === true ?
-                        <Loader></Loader>
-                        :
-                        results.length === 0 ?
-                            <Message>No results found.</Message>
-                            :
-                            <ResultList
-                                results={results}
-                            />
-                }
             </div>
-        );
-    }
+            <br/>
+            { 
+                isPending === true ?
+                    <Loader></Loader>
+                    :
+                    results.length === 0 ?
+                        <Message>No results found.</Message>
+                        :
+                        <ResultList
+                            results={results}
+                        />
+            }
+        </div>
+    );
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(SearchPage);

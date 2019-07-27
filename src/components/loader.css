@@ -1,8 +1,6 @@
   /* The loader */
   .loader {
-    position: absolute;
-    top: 35%;
-    left: 50%;
+    position: relative;
     perspective: 600px;
     transform-style: perserve-3d;
   }

@@ -7,6 +7,7 @@ import {connect} from 'react-redux';
 import {setSubscriptionAddress, performUpdateIndex} from "./actions";
 import ContentBox from '../../components/contentBox';
 import NodeConfig from '../nodeConfig/nodeConfig';
+import Loader from '../../components/loader';
 
 const styles = () => ({
     textField: {
@@ -43,7 +44,9 @@ class SubscriptionsPage extends React.Component {
                 <NodeConfig mamConfig={mamConfig}/>
 
                 <ContentBox title="My subscriptions">
-
+                    {isPending &&
+                        <Loader/>
+                    }
                     <form noValidate autoComplete="off">
                         <TextField
                             required

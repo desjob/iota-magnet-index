@@ -34,7 +34,6 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-
 const mapStateToProps = (state) => {
     return {
         isPending: state.publish.isPending,
@@ -69,13 +68,17 @@ const PublishPage = (props) => {
 
                 <p>
                     Address: {originalRoot ? originalRoot : '-'} <br/>
-                    <strong>Magnet links published: </strong> {count}
+                    <strong>Magnet links published: </strong>{count}
                 </p>
+
+                {isPending &&
+                    <Loader/>
+                }
 
                 <form noValidate autoComplete="off">
                     <TextField
                         required
-                        id="standard-required"
+                        id="description"
                         label="Description"
                         className={classes.textField}
                         margin="normal"
@@ -85,7 +88,7 @@ const PublishPage = (props) => {
                     />
                     <TextField
                         required
-                        id="standard-required-test"
+                        id="magnetLink"
                         label="Magnet link"
                         className={classes.textField}
                         margin="normal"
@@ -107,15 +110,14 @@ const PublishPage = (props) => {
                     </Button>
 
                     {error &&
-                        <span className={classes.message}><ErrorIcon color="secondary"/>{error}</span>
-                    }
-
-                    {isPending &&
-                        <Loader/>
+                        <span className={classes.message}>
+                            <ErrorIcon color="secondary"/>
+                            {error}
+                        </span>
                     }
                 </form>
-
             </ContentBox>
+            
         </div>
     );
 }
