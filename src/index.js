@@ -22,7 +22,7 @@ const persistConfig = {
     serialize: false,
     stateReconciler: autoMergeLevel2,
     transforms: [searchIndexTransform],
-    blacklist: ['searchCriteria', 'searchResults']
+    blacklist: ['searchResults']
 };
 
 const pReducer = persistReducer(persistConfig, rootReducer);

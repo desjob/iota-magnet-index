@@ -64,7 +64,7 @@ const TorrentSearch = ({
                     color="secondary"
                     onClick={onSubmitSearch}
                 >Search
-                    </Button>
+                </Button>
             </div>
         </div>
     );

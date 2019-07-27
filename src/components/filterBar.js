@@ -10,15 +10,24 @@ import TextField from '@material-ui/core/TextField';
 
 import './torrentSearch.css';
 import CustomDatesDialog from './customDatesDialog';
+import { Button } from '@material-ui/core';
 
 const useStyles = makeStyles(theme => ({
+    box: {
+        display: "flex",
+        padding: theme.spacing(2),
+        margin: theme.spacing(2),
+    },
     formControl: {
         minWidth: 120,
-        marginRight: theme.spacing(1),
+        marginRight: theme.spacing(2),
     },
     textField: {
         maxWidth: 80,
-        marginRight: theme.spacing(1),
+        marginRight: theme.spacing(2),
+    },
+    button: {
+        marginLeft: "auto",
     },
 }));
 
@@ -72,25 +81,36 @@ const FilterBar = ({
         onDateChangeUntil(dateUntil);
     }
 
+    const onSetSearchLimit = (event) => {
+        setSearchLimit(event.target.value);
+    }
+
+    const onResetFilters = () => {
+        setDateFilterValue("");
+        onDateChangeFrom(null);
+        onDateChangeUntil(new Date());
+        setSearchLimit(100);
+    }
+
     return (
         <Box 
-            display="block" 
-            p={2} 
-            m={2} 
             bgcolor="grey.200" 
             borderRadius="borderRadius"
-            className="left"
+            className={classes.box}
         >
             <TextField
                 id="limit"
                 label="Limit"
                 value={limit}
-                onChange={setSearchLimit}
+                onChange={onSetSearchLimit}
                 type="number"
                 className={classes.textField}
                 variant="outlined"
             />
-            <FormControl variant="outlined" className={classes.formControl}>
+            <FormControl 
+                variant="outlined" 
+                className={classes.formControl}
+            >
                 <InputLabel>Date filter</InputLabel>
                 <Select
                     value={dateFilterValue}
@@ -120,6 +140,13 @@ const FilterBar = ({
                     dialogDateUntil={dialogDateUntil}
                     setDateFilterValue={setDateFilterValue}
             />
+            <Button
+                variant="outlined"
+                color="primary"
+                onClick={onResetFilters}
+                className={classes.button}
+                >Reset filters
+            </Button>
         </Box>
     )
 }

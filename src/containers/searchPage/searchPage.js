@@ -42,7 +42,7 @@ const mapDispatchToProps = (dispatch) => {
         closeDialog:() => dispatch(closeDialog()),
         setDialogDateFrom: (date) => dispatch(setDialogDateFrom(date)),
         setDialogDateUntil: (date) => dispatch(setDialogDateUntil(date)),
-        setSearchLimit: (event) => dispatch(setSearchLimit(event.target.value)),
+        setSearchLimit: (value) => dispatch(setSearchLimit(value)),
     }
 };
 
