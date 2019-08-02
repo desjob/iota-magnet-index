@@ -22,8 +22,7 @@ import {
 
 const useStyles = makeStyles(theme => ({
     divider: {
-        margin: theme.spacing(1),
-        padding: theme.spacing(1),
+        margin: theme.spacing(2),
     },
 }));
 
@@ -86,9 +85,7 @@ const SearchPage = (props) => {
                 setSearchLimit={setSearchLimit}
                 limit={limit}
             />
-            <div className={classes.divider}>
-                <Divider variant="middle"/>
-            </div>
+            <Divider variant="middle"className={classes.divider}/>
             <br/>
             { 
                 isPending === true ?
