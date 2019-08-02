@@ -63,18 +63,15 @@ const PublishPage = (props) => {
     return (
         <div>
             <NodeConfig mamConfig={mamConfig}/>
-
             <ContentBox title="My channel">
-
                 <p>
-                    Address: {originalRoot ? originalRoot : '-'} <br/>
-                    <strong>Magnet links published: </strong>{count}
+                    Address: {originalRoot ? originalRoot : '-'} 
+                    <br/>
+                    <strong>Magnet links published: </strong> {count}
                 </p>
-
                 {isPending &&
                     <Loader/>
                 }
-
                 <form noValidate autoComplete="off">
                     <TextField
                         required
@@ -96,9 +93,7 @@ const PublishPage = (props) => {
                         onChange={onMagnetLinkChange}
                         disabled={isPending}
                     />
-
                     <br/>
-
                     <Button
                         variant="contained"
                         color="secondary"
@@ -108,7 +103,6 @@ const PublishPage = (props) => {
                     >
                         Publish
                     </Button>
-
                     {error &&
                         <span className={classes.message}>
                             <ErrorIcon color="secondary"/>
@@ -116,8 +110,7 @@ const PublishPage = (props) => {
                         </span>
                     }
                 </form>
-            </ContentBox>
-            
+            </ContentBox>   
         </div>
     );
 }

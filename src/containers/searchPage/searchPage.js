@@ -85,7 +85,7 @@ const SearchPage = (props) => {
                 setSearchLimit={setSearchLimit}
                 limit={limit}
             />
-            <Divider variant="middle"className={classes.divider}/>
+            <Divider variant="middle" className={classes.divider}/>
             <br/>
             { 
                 isPending === true ?
