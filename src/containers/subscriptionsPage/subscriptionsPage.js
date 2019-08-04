@@ -1,5 +1,5 @@
 import React from 'react';
-import {withStyles} from '@material-ui/styles';
+import {withStyles} from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import {connect} from 'react-redux';
@@ -7,6 +7,7 @@ import {connect} from 'react-redux';
 import {setSubscriptionAddress, performUpdateIndex} from "./actions";
 import ContentBox from '../../components/contentBox';
 import NodeConfig from '../nodeConfig/nodeConfig';
+import Loader from '../../components/loader';
 
 const styles = () => ({
     textField: {
@@ -33,7 +34,6 @@ const mapDispatchToProps = (dispatch) => {
 
 class SubscriptionsPage extends React.Component {
 
-
     render() {
         const {classes, onAddressChange, onUpdateIndex, isPending, mamConfig, address} = this.props;
 
@@ -43,7 +43,9 @@ class SubscriptionsPage extends React.Component {
                 <NodeConfig mamConfig={mamConfig}/>
 
                 <ContentBox title="My subscriptions">
-
+                    {isPending &&
+                        <Loader/>
+                    }
                     <form noValidate autoComplete="off">
                         <TextField
                             required

@@ -4,28 +4,29 @@ import {makeStyles} from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Divider from '@material-ui/core/Divider';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles(theme => ({
     paper: {
         display: 'flex',
         alignItems: 'flex-start',
         textAlign: 'left',
-        minWidth: 350,
+        minWidth: 300,
         maxWidth: 900,
-        padding: 0,
-        marginBottom: 10,
-        marginRight: 10,
+        padding: theme.spacing(2),
+        marginBottom: theme.spacing(1),
+        marginRight: theme.spacing(1),
         overflow: 'auto',
+        wordBreak: 'break-word',
     },
     content: {
         padding: 0,
-        margin: 10,
+        margin: theme.spacing(1),
     },
     header: {
         padding: 0,
-        marginLeft: 10,
+        marginLeft: theme.spacing(2),
     },
     divider: {
-        padding: 5,
+        padding: theme.spacing(1),
         margin: 0,
         minWidth: '100%',
     },

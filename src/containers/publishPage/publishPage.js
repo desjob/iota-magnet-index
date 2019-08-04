@@ -34,7 +34,6 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
-
 const mapStateToProps = (state) => {
     return {
         isPending: state.publish.isPending,
@@ -64,18 +63,19 @@ const PublishPage = (props) => {
     return (
         <div>
             <NodeConfig mamConfig={mamConfig}/>
-
             <ContentBox title="My channel">
-
                 <p>
-                    Address: {originalRoot ? originalRoot : '-'} <br/>
+                    Address: {originalRoot ? originalRoot : '-'} 
+                    <br/>
                     <strong>Magnet links published: </strong> {count}
                 </p>
-
+                {isPending &&
+                    <Loader/>
+                }
                 <form noValidate autoComplete="off">
                     <TextField
                         required
-                        id="standard-required"
+                        id="description"
                         label="Description"
                         className={classes.textField}
                         margin="normal"
@@ -85,7 +85,7 @@ const PublishPage = (props) => {
                     />
                     <TextField
                         required
-                        id="standard-required-test"
+                        id="magnetLink"
                         label="Magnet link"
                         className={classes.textField}
                         margin="normal"
@@ -93,9 +93,7 @@ const PublishPage = (props) => {
                         onChange={onMagnetLinkChange}
                         disabled={isPending}
                     />
-
                     <br/>
-
                     <Button
                         variant="contained"
                         color="secondary"
@@ -105,17 +103,14 @@ const PublishPage = (props) => {
                     >
                         Publish
                     </Button>
-
                     {error &&
-                        <span className={classes.message}><ErrorIcon color="secondary"/>{error}</span>
-                    }
-
-                    {isPending &&
-                        <Loader/>
+                        <span className={classes.message}>
+                            <ErrorIcon color="secondary"/>
+                            {error}
+                        </span>
                     }
                 </form>
-
-            </ContentBox>
+            </ContentBox>   
         </div>
     );
 }
