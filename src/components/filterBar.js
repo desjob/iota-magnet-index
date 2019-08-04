@@ -7,10 +7,11 @@ import Select from '@material-ui/core/Select';
 import OutlinedInput from '@material-ui/core/OutlinedInput';
 import Box from '@material-ui/core/Box';
 import TextField from '@material-ui/core/TextField';
+import { Button } from '@material-ui/core';
 
 import './torrentSearch.css';
 import CustomDatesDialog from './customDatesDialog';
-import { Button } from '@material-ui/core';
+import { DEFAULT_SEARCH_LIMIT } from '../containers/searchPage/constants.js';
 
 const useStyles = makeStyles(theme => ({
     box: {
@@ -88,8 +89,8 @@ const FilterBar = ({
     const onResetFilters = () => {
         setDateFilterValue("");
         onDateChangeFrom(null);
-        onDateChangeUntil(new Date());
-        setSearchLimit(100);
+        onDateChangeUntil(null);
+        setSearchLimit(DEFAULT_SEARCH_LIMIT);
     }
 
     return (

@@ -8,19 +8,17 @@ import {
     SET_DIALOG_DATE_FROM,
     SET_DIALOG_DATE_UNTIL,
     SET_SEARCH_LIMIT,
+    DEFAULT_SEARCH_LIMIT,
     SEARCH_PENDING,
     SEARCH_SUCCESS,
     SEARCH_FAIL,
 } from './constants.js';
 
-var initialDateUntil = new Date();
-initialDateUntil.setHours(23, 59, 59, 999);
-
 const initialStateSearchCriteria = {
     searchQuery: '',
-    limit: 100,
+    limit: DEFAULT_SEARCH_LIMIT,
     dateFrom: null,
-    dateUntil: initialDateUntil,
+    dateUntil: null,
     dateFilterValue: "",
     isDialogOpen: false,
     dialogDateFrom: null,

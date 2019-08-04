@@ -1,5 +1,5 @@
 import React from 'react';
-import {withStyles} from '@material-ui/styles';
+import {withStyles} from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import {connect} from 'react-redux';
@@ -33,7 +33,6 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 class SubscriptionsPage extends React.Component {
-
 
     render() {
         const {classes, onAddressChange, onUpdateIndex, isPending, mamConfig, address} = this.props;
