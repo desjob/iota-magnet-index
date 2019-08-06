@@ -47,7 +47,6 @@ export const performSearch = () => (dispatch, getState) => {
         search.query = '1';
     }
 
-
     if (searchCriteria.dateFrom !== null && searchCriteria.dateUntil !== null) {
         search.where = (item) => {
             return item.date >= searchCriteria.dateFrom.valueOf()
@@ -65,15 +64,13 @@ export const performSearch = () => (dispatch, getState) => {
         };
     }
 
-    setTimeout(() => {
-        subscriptions.index.search(search)
-            .then((results) => {
-                dispatch({type: SEARCH_SUCCESS, payload: results})
-            })
-            .catch(error => {
-                dispatch({type: SEARCH_FAIL, payload: error})
-            });
-    }, 500);
+    return subscriptions.index.search(search)
+        .then((results) => {
+            dispatch({type: SEARCH_SUCCESS, payload: results})
+        })
+        .catch(error => {
+            dispatch({type: SEARCH_FAIL, payload: error})
+        });
 }
 
 export const setFromDate = (date) => ({
