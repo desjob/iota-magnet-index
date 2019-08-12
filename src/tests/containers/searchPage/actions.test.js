@@ -1,8 +1,13 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
-import * as actions from './actions';
-import * as types from './constants';
+import * as actions from '../../../containers/searchPage/actions';
+import * as types from '../../../containers/searchPage/constants';
+import { 
+    searchMockResolve, 
+    searchMockReject, 
+    searchMockForDates 
+} from './mocks';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);
@@ -100,13 +105,7 @@ describe('searchPage actions', () => {
       
         it('creates SEARCH_PENDING and SEARCH_SUCCESS when performing a search', () => {
 
-            const searchMock = jest.fn().mockImplementation(() => {
-                return new Promise((resolve) => {
-                    resolve([]);
-                });
-            });
-
-            var index = { search: searchMock }
+            var index = { search: searchMockResolve }
         
             const expectedActions = [
                 { type: types.SEARCH_PENDING },
@@ -132,13 +131,7 @@ describe('searchPage actions', () => {
 
         it('creates SEARCH_PENDING and SEARCH_FAIL when search fails', () => {
 
-            const searchMock = jest.fn().mockImplementation(() => {
-                return new Promise((resolve, reject) => {
-                    reject('Search failed');
-                });
-            });
-
-            var index = { search: searchMock }
+            var index = { search: searchMockReject }
         
             const expectedActions = [
                 { type: types.SEARCH_PENDING },
@@ -162,7 +155,130 @@ describe('searchPage actions', () => {
             })
         })
 
-    //set search query
-    //perform search when search query is empty
+        it('start a new search when the search query is made empty', () => {
+
+            var index = { search: searchMockResolve }
+
+            const searchQuery = '';
+            const expectedActions = [
+                { type: types.SET_SEARCH_QUERY, payload: searchQuery },
+                { type: types.SEARCH_PENDING },
+                { type: types.SEARCH_SUCCESS, payload: [] }
+            ]
+            
+            const store = mockStore({ 
+                searchCriteria: {
+                    searchQuery: ''
+                },
+                searchResults: {
+                    results: []
+                },
+                subscriptions: {
+                    index: index
+                }
+            })
+            
+            store.dispatch(actions.setSearchQuery(searchQuery)).then(() => {
+                expect(store.getActions()).toEqual(expectedActions);
+            })
+        })
+
+        it('updates the search query', () => {
+            const text = 'Test';
+            const expectedActions = [{ 
+                type: types.SET_SEARCH_QUERY, payload: text 
+            }]
+            const store = mockStore();
+
+            store.dispatch(actions.setSearchQuery(text));
+            expect(store.getActions()).toEqual(expectedActions);
+        })
+
+        it('sets the dateFrom', () => {
+            
+            var index = { search: searchMockForDates }
+
+            const expectedActions = [
+                { type: types.SEARCH_PENDING },
+                { type: types.SEARCH_SUCCESS, payload: [] }
+            ]
+            
+            const store = mockStore({ 
+                searchCriteria: {
+                    searchQuery: 'Test',
+                    limit: 100,
+                    dateFrom: new Date(),
+                    dateUntil: null,
+                },
+                searchResults: {
+                    results: []
+                },
+                subscriptions: {
+                    index: index
+                }
+            })
+            
+            store.dispatch(actions.performSearch()).then(() => {
+                expect(store.getActions()).toEqual(expectedActions);
+            })
+        })
+
+        it('sets the dateUntil', () => {
+            
+            var index = { search: searchMockForDates }
+
+            const expectedActions = [
+                { type: types.SEARCH_PENDING },
+                { type: types.SEARCH_SUCCESS, payload: [] }
+            ]
+            
+            const store = mockStore({ 
+                searchCriteria: {
+                    searchQuery: 'Test',
+                    limit: 100,
+                    dateFrom: null,
+                    dateUntil: new Date(),
+                },
+                searchResults: {
+                    results: []
+                },
+                subscriptions: {
+                    index: index
+                }
+            })
+            
+            store.dispatch(actions.performSearch()).then(() => {
+                expect(store.getActions()).toEqual(expectedActions);
+            })
+        })
+
+        it('sets the dateFrom and dateUntil', () => {
+
+            var index = { search: searchMockForDates }
+
+            const expectedActions = [
+                { type: types.SEARCH_PENDING },
+                { type: types.SEARCH_SUCCESS, payload: [] }
+            ]
+            
+            const store = mockStore({ 
+                searchCriteria: {
+                    searchQuery: 'Test',
+                    limit: 100,
+                    dateFrom: new Date(),
+                    dateUntil: new Date(),
+                },
+                searchResults: {
+                    results: []
+                },
+                subscriptions: {
+                    index: index
+                }
+            })
+            
+            store.dispatch(actions.performSearch()).then(() => {
+                expect(store.getActions()).toEqual(expectedActions);
+            })
+        })
     })
 })
