@@ -1,8 +1,8 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
-import * as actions from '../../../containers/searchPage/actions';
-import * as types from '../../../containers/searchPage/constants';
+import * as actions from '../actions';
+import * as types from '../constants';
 import { 
     searchMockResolve, 
     searchMockReject, 
