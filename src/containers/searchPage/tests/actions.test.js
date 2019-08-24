@@ -123,7 +123,8 @@ describe('searchPage actions', () => {
             }
         })
 
-        store.dispatch(actions.performSearch()).then(() => {
+        expect.assertions(1)
+        return store.dispatch(actions.performSearch()).then(() => {
             expect(store.getActions()).toEqual(expectedActions);
         })
     })
@@ -149,7 +150,8 @@ describe('searchPage actions', () => {
             }
         })
 
-        store.dispatch(actions.performSearch()).then(() => {
+        expect.assertions(1)
+        return store.dispatch(actions.performSearch()).then(() => {
             expect(store.getActions()).toEqual(expectedActions);
         })
     })
@@ -177,7 +179,8 @@ describe('searchPage actions', () => {
             }
         })
 
-        store.dispatch(actions.setSearchQuery(searchQuery)).then(() => {
+        expect.assertions(1)
+        return store.dispatch(actions.setSearchQuery(searchQuery)).then(() => {
             expect(store.getActions()).toEqual(expectedActions);
         })
     })
@@ -189,6 +192,7 @@ describe('searchPage actions', () => {
         }]
         const store = mockStore();
 
+        expect.assertions(1)
         store.dispatch(actions.setSearchQuery(text));
         expect(store.getActions()).toEqual(expectedActions);
     })
@@ -217,7 +221,8 @@ describe('searchPage actions', () => {
             }
         })
 
-        store.dispatch(actions.performSearch()).then(() => {
+        expect.assertions(2)
+        return store.dispatch(actions.performSearch()).then(() => {
             expect(store.getActions()).toEqual(expectedActions);
         })
     })
@@ -246,7 +251,8 @@ describe('searchPage actions', () => {
             }
         })
 
-        store.dispatch(actions.performSearch()).then(() => {
+        expect.assertions(2)
+        return store.dispatch(actions.performSearch()).then(() => {
             expect(store.getActions()).toEqual(expectedActions);
         })
     })
@@ -275,7 +281,8 @@ describe('searchPage actions', () => {
             }
         })
 
-        store.dispatch(actions.performSearch()).then(() => {
+        expect.assertions(2)
+        return store.dispatch(actions.performSearch()).then(() => {
             expect(store.getActions()).toEqual(expectedActions);
         })
     })
