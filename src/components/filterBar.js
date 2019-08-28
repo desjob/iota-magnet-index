@@ -9,7 +9,6 @@ import Box from '@material-ui/core/Box';
 import TextField from '@material-ui/core/TextField';
 import { Button } from '@material-ui/core';
 
-import './torrentSearch.css';
 import CustomDatesDialog from './customDatesDialog';
 import { DEFAULT_SEARCH_LIMIT } from '../containers/searchPage/constants.js';
 

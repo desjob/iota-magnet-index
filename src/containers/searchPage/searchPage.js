@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import {makeStyles} from '@material-ui/core/styles';
 import {connect} from 'react-redux';
-
-import TorrentSearch from '../../components/torrentSearch';
-import ResultList from '../../components/resultList';
 import Divider from '@material-ui/core/Divider';
+
+import TorrentSearch from '../../components/torrentSearch/torrentSearch';
+import ResultList from '../../components/resultList';
 import Message from '../../components/message';
 import Loader from '../../components/loader';
 import {
