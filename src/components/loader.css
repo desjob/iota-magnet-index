@@ -3,6 +3,13 @@
     position: relative;
     perspective: 600px;
     transform-style: perserve-3d;
+    animation: delayVisibility linear 0.2s;
+  }
+  
+  @keyframes delayVisibility {
+    0%   { opacity:0; }
+    99%  { opacity:0; }
+    100% { opacity:1; }
   }
   
   /* The dot */
