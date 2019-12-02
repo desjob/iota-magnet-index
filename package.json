@@ -1,6 +1,6 @@
 {
   "name": "iota-magnet-index",
-  "homepage": ".",
+  "homepage": "https://desjob.github.io/iota-magnet-index/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -39,6 +39,7 @@
     "file-loader": "3.0.1",
     "flexsearch": "^0.6.22",
     "fs-extra": "7.0.1",
+    "gh-pages": "^2.1.1",
     "html-webpack-inline-source-plugin": "^1.0.0-beta.2",
     "html-webpack-plugin": "^4.0.0-beta.4",
     "identity-obj-proxy": "3.0.0",
