@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/iota-magnet-index/static/css/main.8e779c4a.chunk.css",
+    "main.js": "/iota-magnet-index/static/js/main.a361f8db.chunk.js",
+    "main.js.map": "/iota-magnet-index/static/js/main.a361f8db.chunk.js.map",
+    "runtime~main.js": "/iota-magnet-index/static/js/runtime~main.e1442af5.js",
+    "runtime~main.js.map": "/iota-magnet-index/static/js/runtime~main.e1442af5.js.map",
+    "static/js/2.6efe6f28.chunk.js": "/iota-magnet-index/static/js/2.6efe6f28.chunk.js",
+    "static/js/2.6efe6f28.chunk.js.map": "/iota-magnet-index/static/js/2.6efe6f28.chunk.js.map",
+    "index.html": "/iota-magnet-index/index.html",
+    "precache-manifest.f14fef05e6df490bc221f7a833634238.js": "/iota-magnet-index/precache-manifest.f14fef05e6df490bc221f7a833634238.js",
+    "service-worker.js": "/iota-magnet-index/service-worker.js",
+    "static/css/main.8e779c4a.chunk.css.map": "/iota-magnet-index/static/css/main.8e779c4a.chunk.css.map"
+  }
+}
